@@ -1,0 +1,23 @@
+{
+  "skill_name": "factory-di",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm building a Swift app with Factory for DI. I have a NetworkService, AuthService, and UserRepository. The UserRepository needs both NetworkService and AuthService. Help me set up the containers and registrations with appropriate scopes.",
+      "expected_output": "Container extension with factory definitions using protocol types, constructor injection for UserRepository, appropriate scope selection (e.g., singleton for network, cached for auth), and explanation of choices.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Here's my current Factory setup. Can you review it and suggest improvements?\n\n```swift\nimport Factory\n\nextension Container {\n    static var api = Factory<APIService>(scope: .singleton) { APIService() }\n    static var db = Factory<DatabaseService>(scope: .singleton) { DatabaseService() }\n    static var vm = Factory<ViewModel> { ViewModel() }\n}\n\nclass ViewModel {\n    let api = Container.api()\n    let db = Container.db()\n}\n```",
+      "expected_output": "Identifies this as Factory 1.x syntax and suggests migration to 2.0. Flags: concrete types instead of protocols, service locator in ViewModel, everything as singleton, import Factory should be import FactoryKit. Provides refactored code with proper 2.0 patterns.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My Factory-based tests are flaky when run in parallel. Some tests pass individually but fail when the whole suite runs. Here's my test setup:\n\n```swift\nclass MyTests: XCTestCase {\n    func testA() {\n        Container.shared.userService.register { MockUserA() }\n        let vm = MyViewModel()\n        XCTAssertEqual(vm.userName, \"UserA\")\n    }\n    \n    func testB() {\n        Container.shared.userService.register { MockUserB() }\n        let vm = MyViewModel()\n        XCTAssertEqual(vm.userName, \"UserB\")\n    }\n}\n```",
+      "expected_output": "Diagnoses missing reset in setUp, explains test pollution. Provides fix with Container.shared.reset() in setUp. Also suggests Swift Testing with ContainerTrait for proper parallel isolation, or Container.$shared.withValue for XCTest parallel isolation.",
+      "files": []
+    }
+  ]
+}
