@@ -5,8 +5,8 @@ Personal agent skills for AI coding agents.
 ## Install
 
 ```sh
-# all skills
-npx skills add guillevc/skills --all
+# browse and select skills to install
+npx skills add guillevc/skills
 
 # specific skill
 npx skills add guillevc/skills --skill <name>
