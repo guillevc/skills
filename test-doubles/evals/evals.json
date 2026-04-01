@@ -1,0 +1,47 @@
+{
+  "skill_name": "test-doubles",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have this Python test helper in my Django project and I'm not sure what to call it. Can you tell me what kind of test double this is?\n\nclass FakeEmailBackend:\n    def __init__(self):\n        self.sent_messages = []\n\n    def send_messages(self, messages):\n        self.sent_messages.extend(messages)\n        return len(messages)\n\nI use it like this in my tests:\n\ndef test_welcome_email_sent_on_signup(self):\n    backend = FakeEmailBackend()\n    service = SignupService(email_backend=backend)\n    service.register_user(\"alice@example.com\")\n    self.assertEqual(len(backend.sent_messages), 1)\n    self.assertEqual(backend.sent_messages[0].to, [\"alice@example.com\"])",
+      "expected_output": "The skill should classify this as a Spy (not a Fake despite the name), because it records calls and the test asserts on recorded interactions. It should explain the naming mismatch and note that behavior verification is appropriate here since sending email is a side effect.",
+      "files": [],
+      "expectations": [
+        "Correctly classifies the test double as a Spy (not a Fake or Mock)",
+        "Explains why the class name 'FakeEmailBackend' is misleading",
+        "Notes that the test uses behavior verification (asserting on recorded calls)",
+        "Acknowledges that behavior verification is appropriate here because email sending is a side effect",
+        "Suggests a better name like SpyEmailBackend or EmailSendingSpy"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I'm writing a Go service that fetches user profiles from a PostgreSQL database. My UserService has a method GetActiveUsers() that calls a UserRepository interface. I want to test that GetActiveUsers correctly filters out users whose accounts expired more than 30 days ago. The repository returns all users and the service does the filtering. What test double should I use and can you write it for me?",
+      "expected_output": "The skill should recommend a Stub because: (a) the test cares about the SUT's filtering logic (state verification), (b) the collaborator just needs to return a fixed set of users, (c) Go's interface-based design makes hand-written stubs natural. Should generate a Go struct implementing UserRepository with a hardcoded return slice, plus the test function.",
+      "files": [],
+      "expectations": [
+        "Recommends a Stub (not a Mock or Fake)",
+        "Explains that state verification is appropriate because the test cares about the filtering result",
+        "Generates a hand-written Go struct implementing the repository interface",
+        "The generated stub returns a mix of active and expired users for testing the filter logic",
+        "Generates a complete test function that asserts on the filtered result (state verification)",
+        "Explains why a mock would be overkill for this scenario"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "My team's TypeScript tests are really brittle. Every time we refactor the internals of our OrderService, dozens of tests break even though the behavior hasn't changed. Here's a typical test:\n\ntest('processes order correctly', () => {\n  const mockInventory = jest.fn().mockReturnValue({ available: true, quantity: 10 });\n  const mockPayment = jest.fn().mockResolvedValue({ success: true, txId: 'abc123' });\n  const mockNotifier = jest.fn().mockResolvedValue(undefined);\n\n  const service = new OrderService({\n    checkInventory: mockInventory,\n    processPayment: mockPayment,\n    notifyCustomer: mockNotifier,\n  });\n\n  await service.placeOrder({ itemId: 'SKU-1', quantity: 2, customerId: 'C-1' });\n\n  expect(mockInventory).toHaveBeenCalledWith('SKU-1', 2);\n  expect(mockPayment).toHaveBeenCalledWith({ amount: 19.98, customerId: 'C-1' });\n  expect(mockNotifier).toHaveBeenCalledWith('C-1', expect.objectContaining({ txId: 'abc123' }));\n});\n\nWe have about 40 tests like this. Help?",
+      "expected_output": "The skill should diagnose mock overuse / excessive behavior verification. It should explain that checkInventory and processPayment should be stubs (test cares about order result, not exact calls), while notifyCustomer is the one case where a spy is justified (notification is a side effect). Should rewrite the test with state verification on the order result and minimal behavior verification only for the notification.",
+      "files": [],
+      "expectations": [
+        "Diagnoses the anti-pattern as mock overuse or excessive behavior verification",
+        "Identifies that checkInventory and processPayment should be stubs",
+        "Identifies that notifyCustomer is a legitimate spy use case (side effect)",
+        "Rewrites the test to assert on the order result state rather than call arguments",
+        "Keeps behavior verification only for the notifyCustomer side effect",
+        "Connects this to the classical vs mockist TDD distinction",
+        "Explains why the refactored version will be more resilient to internal changes"
+      ]
+    }
+  ]
+}
