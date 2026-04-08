@@ -24,14 +24,33 @@ Run these in parallel:
 
 - `git diff --cached` — the full staged diff (this is the primary input for the commit message)
 - `git log --oneline -20` — recent commit history, so you can match the project's existing scope conventions
+- `git branch --show-current` — the branch name often encodes intent (e.g., `fix/null-user-lookup`, `feat/oauth-google`)
+
+**Conversation context:** Before analyzing the diff, review what the user has been working on in this conversation. Tasks they described, bugs they debugged, or features they built are the strongest signal for the *why* behind a change. Prefer conversation context over guessing intent from code alone.
 
 ## Step 3: Analyze the diff
 
-Read the staged diff and identify:
+Determine **what** changed and **why**:
 
-- **What changed**: files added, modified, or deleted; functions or classes touched; config altered
-- **The nature of the change**: is this a new feature, bug fix, refactor, docs update, test addition, dependency change, config tweak, CI change, style fix, or performance improvement?
-- **The scope**: which single module, package, or component is affected
+1. **Identify the what:** Which functions, classes, routes, or config keys were added, modified, or deleted? Which single module, package, or component is affected (this becomes the scope)?
+2. **Determine the why** using these signals (in priority order):
+   - **Conversation context** — what was the user trying to accomplish? This overrides all heuristics below.
+   - **Branch name** — `fix/`, `feat/`, `chore/` prefixes directly indicate type and intent.
+   - **Diff patterns that reveal intent:**
+     - Conditional/guard clause added or changed around existing logic → likely `fix`
+     - Return value or error handling changed → likely `fix`
+     - New exported function/class/route/component → likely `feat`
+     - Renamed symbols, moved code between files, extracted helpers with no new behavior → `refactor`
+     - Only `.test.` / `.spec.` / `__tests__` files changed → `test`
+     - Only `package.json`, lockfile, `.config` files → `chore` or `build`
+3. **Gauge complexity:** Count files changed and total lines added/removed.
+
+### Large diffs (>300 lines or >8 files)
+
+For big diffs, don't try to describe everything. Instead:
+- Identify the single unifying intent (e.g., "migrate from REST to GraphQL", "add user profile feature")
+- If there is no unifying intent, describe the dominant change and note the secondary ones in the body
+- Skim file names and hunks for the theme; don't get lost in implementation details
 
 ## Step 4: Build the commit message
 
@@ -44,6 +63,16 @@ type(scope): description
 
 [optional body]
 ```
+
+For breaking changes, append `!` after the type/scope:
+
+```
+type(scope)!: description
+
+What breaks and how to migrate.
+```
+
+A breaking change always requires a body explaining what breaks.
 
 ### Type
 
@@ -79,9 +108,23 @@ Rules:
 - Describe what the change does, not which files were touched
 - Be specific: `fix null pointer in user lookup` beats `fix bug`
 
+**Anti-patterns — never generate these:**
+- Vague: "update code", "fix issue", "improve handling", "make changes", "address feedback"
+- Tautological: "refactor: refactor auth module", "fix: fix the bug"
+- File-listing: "update user.ts and auth.ts"
+- Over-broad: "improve application" or "update project"
+
+If you catch yourself writing a vague subject, ask: *what specifically was broken/missing/wrong?* Name the concrete thing.
+
 ### Body
 
-Add a body only when the subject alone doesn't explain why the change was made or when the diff is complex. Keep it to a sentence or two. Most commits don't need a body.
+Add a body (1-3 sentences) when any of these are true:
+- The change is a **fix** and the subject doesn't name the root cause
+- The change is a **breaking change** (always explain what breaks)
+- The diff touches >5 files or >150 lines
+- The *why* is not obvious from the *what* (e.g., a performance fix that changes algorithm)
+
+Skip the body when the subject fully explains a small, obvious change (rename, dep bump, typo fix).
 
 ## Step 5: Commit
 
@@ -120,6 +163,19 @@ test(auth): add tests for token expiration edge cases
 refactor: rename internal helpers for consistency
 chore: update linter config and CI pipeline
 feat: add user profile page with API endpoint
+```
+
+**Breaking change:**
+```
+feat(api)!: require API key for all endpoints
+```
+
+**With body:**
+```
+fix(parser): handle unterminated string literals
+
+Previously, an unterminated string caused an infinite loop in the tokenizer.
+The parser now emits a diagnostic and recovers at the next newline.
 ```
 
 ## Important
