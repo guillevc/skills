@@ -1,20 +1,15 @@
 ---
 name: swift-factory-di
 description: >
-  MUST USE for any question about the Swift "Factory" dependency injection library by hmlongco
-  (also known as FactoryKit). This skill contains the complete API reference, best practices,
-  testing patterns, and migration guides for Factory 2.x. Trigger on ANY of these situations:
-  setting up Factory containers or registrations in Swift, choosing Factory scopes (.singleton,
-  .cached, .shared, .graph, .unique), using Factory property wrappers (@Injected, @LazyInjected,
-  @WeakLazyInjected, @DynamicInjected, @InjectedObject, @InjectedObservable), fixing flaky tests
-  caused by Factory container state leaking between test cases, debugging circular dependency
-  errors from Factory, mocking dependencies in SwiftUI previews with Factory, migrating from
-  Factory 1.x to 2.0 syntax, reviewing or refactoring Factory container code, using ContainerTrait
-  for parallel test isolation, configuring Factory contexts (.onTest, .onPreview, .onSimulator),
-  or importing FactoryKit/Factory in Swift code. Even if the user doesn't say "Factory" by name,
-  trigger if they mention Container.shared, SharedContainer, @Injected with keypaths like
-  \.serviceName, or any Factory-specific API. Do NOT use for other DI frameworks (Swinject,
-  swift-dependencies, Dagger), the factory design pattern in general, or generic DI concepts.
+  MUST USE for questions about the Swift Factory dependency injection library by hmlongco, also
+  called FactoryKit. Covers Factory 2.x APIs, best practices, testing, and migration. Trigger on
+  setting up containers or registrations, scopes (.singleton, .cached, .shared, .graph, .unique),
+  property wrappers (@Injected, @LazyInjected, @WeakLazyInjected, @DynamicInjected, @InjectedObject,
+  @InjectedObservable), flaky tests from container state, circular dependency errors, SwiftUI
+  previews, migration from Factory 1.x to 2.x, ContainerTrait, contexts (.onTest, .onPreview,
+  .onSimulator), imports of FactoryKit/Factory, Container.shared, SharedContainer, @Injected
+  keypaths like \.serviceName, or any Factory-specific API. Do not use for Swinject,
+  swift-dependencies, Dagger, the factory design pattern, or generic DI concepts.
 ---
 
 # Factory DI — Reference & Optimization Guide

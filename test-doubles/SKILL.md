@@ -1,18 +1,14 @@
 ---
 name: test-doubles
 description: >
-  Identify, classify, design, and create test doubles using Martin Fowler's taxonomy (Dummy, Fake,
-  Stub, Spy, Mock) in any programming language. Use this skill whenever the user needs help with
-  test doubles, mocking, stubbing, faking, or test isolation. Trigger on: creating mocks or stubs
-  for unit tests, deciding between state and behavior verification, choosing the right test double
-  type, refactoring brittle over-mocked tests, classifying existing test doubles ("what kind of
-  test double is this?"), writing fakes for integration testing, setting up test spies, replacing
-  real dependencies in tests, debating classical vs mockist TDD, reducing test coupling to
-  implementation details, or fixing tests that break on every refactor. Also trigger when the user
-  mentions mocking frameworks (Mockito, unittest.mock, Sinon, jest.mock, Moq, gomock, testdouble.js,
-  RSpec mocks, OCMock, Mockery, NSubstitute), or asks "should I mock this?" or "why are my tests
-  so brittle?" Even if the user doesn't say "test double" explicitly, trigger when they're clearly
-  struggling with test isolation, fake implementations, or verification strategy.
+  Identify, classify, design, and create test doubles using Fowler's taxonomy: Dummy, Fake, Stub,
+  Spy, and Mock. Use whenever the user needs help with test doubles, mocking, stubbing, faking,
+  spies, or test isolation in any language. Trigger on creating mocks or stubs for unit tests,
+  choosing a double type, state vs behavior verification, brittle over-mocked tests, "what kind of
+  test double is this?", fakes for integration tests, replacing real dependencies, classical vs
+  mockist TDD, tests coupled to implementation details, or "should I mock this?" Also trigger on
+  mocking frameworks such as Mockito, unittest.mock, Sinon, jest.mock, Moq, gomock, testdouble.js,
+  RSpec mocks, OCMock, Mockery, and NSubstitute.
 ---
 
 # Test Doubles — Classify, Design & Create

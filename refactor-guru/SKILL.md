@@ -1,15 +1,13 @@
 ---
 name: refactor-guru
 description: >
-  Use when the user asks to refactor code, clean up messy code, or code "feels wrong" — hard
-  to test, follow, or change. Also when they mention specific smells (god class, long method,
-  feature envy, shotgun surgery, spaghetti code, tight coupling), ask "why is this code so
-  hard to change/test/read," want to break up a large class or method, or say things like
-  "this is a mess," "I keep having to change 10 files," "this class does too much," or
-  "I can't write tests for this." Also when they have a structural goal ("make this pluggable,"
-  "I need to add N more export formats," "we need to deploy independently," "I want to support
-  undo") or a comprehension problem ("I can never remember how billing works," "new devs take
-  weeks to understand this," "the code works but I can't explain it").
+  Use when the user asks to refactor code, clean up messy code, or diagnose code that feels hard
+  to test, follow, or change. Trigger on named or informal smells: god class, long method, feature
+  envy, shotgun surgery, spaghetti code, tight coupling, "this is a mess," "this class does too
+  much," "I keep changing 10 files," or "I can't write tests for this." Also use for structural
+  goals such as making code pluggable, adding many variants or export formats, supporting undo,
+  splitting modules for independent deployment, or improving code that works but is hard to
+  explain, remember, or onboard new developers into.
 ---
 
 # Code Refactoring
