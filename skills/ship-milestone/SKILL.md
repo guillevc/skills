@@ -22,11 +22,6 @@ the result as a PR.
   for **human review and merge** — the skill never merges. Each delta that reverses a decision stops
   for the human.
 
-## Config
-
-Orchestrator: each step names a sibling skill to use if installed, but states the action so it runs
-without them. Reads `.in-the-loop.json` for doc paths and `layers` if present; otherwise auto-detect.
-
 ## Steps
 
 1. **Discover deltas.** Find every place the milestone's code now diverges from the durable docs —
@@ -48,7 +43,9 @@ without them. Reads `.in-the-loop.json` for doc paths and `layers` if present; o
 
 ## Notes
 
+- Orchestrator: each step names a sibling skill to use if installed, but states the action so it
+  runs without them. Doc locations are auto-detected by convention (else the agent doc, else ask).
 - No work-doc to delete — this system doesn't persist build scratch. If a milestone spanned
   multiple sessions, reconstruct context from the roadmap (the durable plan anchor), not a scratch
   file.
-- If `layers.roadmap` is false in config, skip step 3's roadmap mechanics and just fold back + PR.
+- If the project keeps no roadmap, skip step 3's roadmap mechanics and just fold back + PR.

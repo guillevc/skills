@@ -20,11 +20,11 @@ glossary, and keeps the glossary current as new concepts appear — so vocabular
 - **Gated (light confirm):** the human ratifies vocabulary — confirms a new term, its definition,
   and which synonyms to ban — before the glossary is edited. Naming is a human call.
 
-## Config
+## Glossary location
 
-Reads `.in-the-loop.json` for the glossary path and naming `invariants` if present; otherwise
-auto-detect the glossary (`docs/GLOSSARY.md` or `CONTEXT.md`) and skip invariant greps that have no
-config source.
+Auto-detect the glossary (`docs/GLOSSARY.md` or `CONTEXT.md`); else check the agent doc
+(`CLAUDE.md`/`AGENTS.md`) or ask. Create it lazily on the first term — don't write a blank file.
+Naming invariants come from the agent doc if the project declares any; skip otherwise.
 
 ## What it checks
 

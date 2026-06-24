@@ -20,12 +20,13 @@ is the gate that stops it.
   ("this is a decision → ADR"), not an action. Decisions that route to an ADR escalate to the hard
   gate in `new-adr` / `supersede-adr`.
 
-## Config
+## Doc locations
 
-Reads `.in-the-loop.json` for doc paths if present; otherwise auto-detect (`docs/standards.md`,
-`docs/architecture.md`, `docs/decisions/` or `docs/adr/`, `docs/GLOSSARY.md` or `CONTEXT.md`,
-`docs/roadmap.md`) and ask if ambiguous. Where a sibling skill is named below, use it if installed;
-otherwise do its action inline.
+Auto-detect the durable docs by convention (`docs/standards.md`, `docs/architecture.md`,
+`docs/decisions/` or `docs/adr/`, `docs/GLOSSARY.md` or `CONTEXT.md`, `docs/roadmap.md`). If a
+project keeps them elsewhere, check its `CLAUDE.md`/`AGENTS.md`; else ask once. Create a doc lazily
+on first real content — don't write a blank file. Where a sibling skill is named below, use it if
+installed; otherwise do its action inline.
 
 ## The routing rule
 

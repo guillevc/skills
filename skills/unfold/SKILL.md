@@ -25,9 +25,9 @@ through `doc-route` and the ADR skills.
 
 ## Loop
 
-1. **Read the ground first.** Load the project config (`.in-the-loop.json`) and skim the durable
-   docs it points to — standards, architecture, existing ADRs, glossary, roadmap. Do not re-open
-   anything already settled there; treat settled records as given unless the human reopens them.
+1. **Read the ground first.** Skim the durable docs (standards, architecture, existing ADRs,
+   glossary, roadmap — wherever the project keeps them). Do not re-open anything already settled
+   there; treat settled records as given unless the human reopens them.
 2. **Map the tree.** State the plan/design back as a small set of open branches and unknowns. Name
    them so each can be tracked to closure.
 3. **Interrogate, one branch at a time.** Ask the sharpest question that would most reduce

@@ -13,11 +13,15 @@ A final sweep before work is called done. When the guards (`doc-route`, `drift-c
 `glossary-guard`) are installed they catch most issues *during* work and this is a confirmation;
 installed alone, it is the sole coherence gate.
 
-## Config
+## Where the project specifics come from
 
-Reads `.in-the-loop.json` for `verify`, `invariants`, and `layers` if present. Without config, run
-the universal checks only and ask the user for a verify command; skip project checks that have no
-source.
+The verify command and any custom invariants are project facts, not config. In order:
+
+1. **Detect the verify command** from the repo — `go.mod` → `go build ./... && go test ./...`,
+   `package.json` → its test script, a `justfile`/`Makefile` → the test/check target.
+2. **Read the agent doc** (`CLAUDE.md`/`AGENTS.md`) for a stated verify command or invariants
+   (e.g. "no snake_case in API JSON", "no doc section-numbers").
+3. **Else ask once**, and offer to record the answer in the agent doc so it persists.
 
 ## Human-in-the-loop contract
 
@@ -32,15 +36,15 @@ source.
    behavior restatements.
 2. **Decisions recorded.** Any consolidated choice or standard deviation in the diff has an ADR;
    any new term is in the glossary.
-3. **Roadmap current** (if `layers.roadmap`): acceptance for shipped work is ticked; shipped
-   milestones removed.
+3. **Roadmap current** (if the project keeps a roadmap): acceptance for shipped work is ticked;
+   shipped milestones removed.
 4. **Links resolve.** Cross-doc references resolve by heading name (the system's link convention).
 
-## Project checks (from `.in-the-loop.json`)
+## Project checks
 
-5. **Verify.** Run the project's `verify` command (build/test/lint). Must pass.
-6. **Invariants.** Run each configured `invariants` grep and assert its `must` (e.g. "section [0-9]"
-   absent in docs, no snake_case in API JSON). These are project-defined, not hardcoded.
+5. **Verify.** Run the detected/declared verify command (build/test/lint). Must pass.
+6. **Invariants.** Run each invariant from the agent doc and assert it (e.g. "section [0-9]" absent
+   in docs, no snake_case in API JSON). Skip if the project declares none.
 
 ## Output
 

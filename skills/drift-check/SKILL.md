@@ -21,15 +21,16 @@ the code is wrong or the doc is now wrong.
   edits code or docs to "fix" drift. A doc fix that reverses a decision is done as a superseding ADR
   (use `supersede-adr` if installed).
 
-## Config
+## Doc locations
 
-Reads `.in-the-loop.json` for the durable-doc paths if present; otherwise auto-detect
-(`docs/standards.md`, `docs/architecture.md`, `docs/decisions/` or `docs/adr/`). Where a sibling
-skill is named below, use it if installed; otherwise do its action inline.
+Auto-detect the durable docs by convention (`docs/standards.md`, `docs/architecture.md`,
+`docs/decisions/` or `docs/adr/`). If a project keeps them elsewhere, check its `CLAUDE.md`/
+`AGENTS.md`; else ask once. Where a sibling skill is named below, use it if installed; otherwise do
+its action inline.
 
 ## Steps
 
-1. Read the durable docs (standards, architecture, ADRs) — paths from config or auto-detected.
+1. Read the durable docs (standards, architecture, ADRs) — auto-detected per above.
 2. For each durable claim, check whether the code still honors it. Look both ways:
    - **Code contradicts a doc** — code violates a rule/decision/design the docs assert.
    - **Doc contradicts code** — a doc still asserts something the code has moved past (stale claim).

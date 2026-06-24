@@ -36,8 +36,9 @@ still open on this branch, finish unfolding first. Premature ADRs freeze the wro
 ## Steps
 
 1. Confirm the decision is consolidated (not mid-debate) and doesn't contradict an existing ADR.
-2. Find the ADR directory and numbering — from `.in-the-loop.json` (`docs.adr_dir`) if present, else
-   auto-detect (`docs/decisions/` or `docs/adr/`, or ask). Pick the next id.
+2. Find the ADR directory and numbering — auto-detect (`docs/decisions/` or `docs/adr/`), else check
+   the agent doc (`CLAUDE.md`/`AGENTS.md`) or ask; create the dir lazily if none exists. Pick the
+   next id.
 3. Draft ~10–25 lines using this template:
 
    ```markdown

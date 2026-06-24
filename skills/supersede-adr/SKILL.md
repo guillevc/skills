@@ -32,8 +32,8 @@ This is the only sanctioned way to override an ADR. Silent contradiction in code
 
 ## Steps
 
-1. Identify the existing ADR being reversed (ADR dir from `.in-the-loop.json` `docs.adr_dir` if
-   present, else auto-detect `docs/decisions/` or `docs/adr/`).
+1. Identify the existing ADR being reversed (ADR dir auto-detected — `docs/decisions/` or
+   `docs/adr/`).
 2. Confirm the merits favor change (see merits gate above).
 3. Draft the new ADR using this template, including a **Supersedes: <old-id>** reference:
 
