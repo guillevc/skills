@@ -9,9 +9,9 @@ description: >
 
 # Drift-check
 
-Find places where shipped code contradicts what the durable docs say, in both directions. This is
-the executable form of "stop on drift": the agent surfaces the conflict, the human decides whether
-the code is wrong or the doc is now wrong.
+Keep the **living spec** living. Find places where shipped code contradicts what the durable docs
+say, in both directions. This is the executable form of "stop on drift": the agent surfaces the
+conflict, the human decides whether the code is wrong or the doc is now wrong.
 
 ## Human-in-the-loop contract
 

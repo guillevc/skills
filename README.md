@@ -1,8 +1,10 @@
 # in-the-loop
 
-A **human-in-the-loop docs system** for AI coding agents — a set of skills that keep durable documentation and code coherent with minimum maintenance, where the agent explores and drafts but the human decides and ratifies.
+**Human-in-the-loop, spec-driven development around a living spec.** Your typed durable docs are the spec: skills build from them, keep code and docs in sync both ways, and gate every durable or outward step on you.
 
-Most agent doc systems are *autonomy-forward*: the agent interviews you, then writes docs on its own. `in-the-loop` is *ratification-forward*: **no durable or irreversible change lands without an explicit human gate** — and gate strength tracks reversibility, so cheap stuff stays frictionless and only immutable/outward actions earn a full review.
+The **living spec** is the heart — not a frozen up-front document but typed durable docs (standards, architecture, decisions, glossary, roadmap) that you *build from* and that stay coherent *with* code as it changes. It doubles as engineered context: typed, fresh, and token-cheap for the agent to consume.
+
+Most agent setups are *autonomy-forward*: the agent interviews you, then writes and acts on its own. `in-the-loop` is *ratification-forward*: **no durable or irreversible change lands without an explicit human gate** — and gate strength tracks reversibility, so cheap stuff stays frictionless and only immutable/outward actions earn a full review.
 
 ## Install
 
@@ -33,9 +35,9 @@ Gate strength tracks reversibility:
 
 Every skill declares its gates in a **Human-in-the-loop contract** section: what it does autonomously vs what needs ratification.
 
-## The docs model
+## The living spec
 
-Durable docs are **typed by durability** — each changes only when its kind of fact changes:
+The spec is **typed by durability** — each doc changes only when its kind of fact changes. Together they're the source the agent builds from and reconciles against:
 
 | Doc | Holds | Changes when |
 |---|---|---|
@@ -53,14 +55,14 @@ Durable docs are **typed by durability** — each changes only when its kind of 
 
 | Skill | Role | Gate |
 |---|---|---|
-| `unfold` | Explore a plan/design via relentless back-and-forth until every branch is open | none (explores only) |
-| `doc-route` | Route a resolved fact into the right typed doc slot | light confirm |
-| `drift-check` | Detect code↔doc contradictions; human picks fix-code vs supersede-doc | hard gate (human picks) |
-| `glossary-guard` | Flag terms/identifiers/API casing that drift from the glossary | light confirm |
-| `new-adr` | Draft an ADR for a consolidated choice | hard gate (immutable) |
-| `supersede-adr` | Write a superseding ADR, flip the old to `superseded` | hard gate (cross-file) |
-| `ship-milestone` | Fold deltas back into typed docs, tick roadmap, open PR for review | hard gate (PR) |
-| `finishing-check` | End-gate: universal doc-coherence checks + project verify/invariants | advisory |
+| `unfold` | Shape the living spec — explore a plan/design until every branch is open | none (explores only) |
+| `doc-route` | Route a resolved fact into its slot in the living spec | light confirm |
+| `drift-check` | Keep the spec living — detect code↔doc contradictions; human picks the fix | hard gate (human picks) |
+| `glossary-guard` | Keep the spec's vocabulary tight — flag terms/identifiers/API casing that drift | light confirm |
+| `new-adr` | Record a consolidated decision into the spec as an ADR | hard gate (immutable) |
+| `supersede-adr` | Reverse a decision — superseding ADR, flip the old to `superseded` | hard gate (cross-file) |
+| `ship-milestone` | Build a milestone from the living spec, reconcile docs, optionally PR | gated build + outward |
+| `finishing-check` | End-gate: spec↔code coherence + project verify/invariants | advisory |
 
 `doc-route`, `drift-check`, `glossary-guard` are model-invoked guards (run during work). The rest are invoked by a guard or the user.
 

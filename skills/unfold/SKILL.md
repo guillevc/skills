@@ -11,8 +11,8 @@ description: >
 # Unfold
 
 Open a plan or design branch by branch. Interrogate assumptions, surface edge cases, and keep
-the back-and-forth going until nothing important is left implicit. This is the *exploration* half
-of the loop — the human answers, the agent questions. Resolution and durable writes happen later,
+the back-and-forth going until nothing important is left implicit. This is how the **living spec**
+gets shaped — the human answers, the agent questions; resolved points become durable entries later,
 through `doc-route` and the ADR skills.
 
 ## Human-in-the-loop contract

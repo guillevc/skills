@@ -8,9 +8,9 @@ description: >
 
 # Doc-route
 
-The keystone guard. Before anything gets written to a durable doc, classify it and send it to the
-right place. Most doc rot comes from putting the wrong *kind* of fact in a durable doc; this skill
-is the gate that stops it.
+The keystone guard. Before anything gets written into the **living spec**, classify it and send it
+to the right doc. Most doc rot comes from putting the wrong *kind* of fact in a durable doc; this
+skill is the gate that stops it.
 
 ## Human-in-the-loop contract
 
