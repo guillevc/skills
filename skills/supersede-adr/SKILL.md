@@ -32,11 +32,27 @@ This is the only sanctioned way to override an ADR. Silent contradiction in code
 
 ## Steps
 
-1. Identify the existing ADR being reversed (from `.in-the-loop.json` `docs.adr_dir`).
+1. Identify the existing ADR being reversed (ADR dir from `.in-the-loop.json` `docs.adr_dir` if
+   present, else auto-detect `docs/decisions/` or `docs/adr/`).
 2. Confirm the merits favor change (see merits gate above).
-3. Draft the new ADR from `ADR-TEMPLATE.md` (in the `setup-in-the-loop` skill folder),
-   `status: accepted`, including a **Supersedes: <old-id>** reference and the reasoning for the
-   reversal.
+3. Draft the new ADR using this template, including a **Supersedes: <old-id>** reference:
+
+   ```markdown
+   # <NNNN> — <decision stated as a choice>
+
+   - **Status:** accepted
+   - **Date:** <YYYY-MM-DD>
+   - **Supersedes:** <old-id>
+
+   ## Context
+   <The forces driving the reversal — what changed since the old decision.>
+
+   ## Decision
+   <The new choice.>
+
+   ## Consequences
+   <What this enables and costs versus the superseded decision.>
+   ```
 4. Draft the status change to the old ADR: `status: superseded` with a **Superseded by: <new-id>**
    pointer. Do not alter the old ADR's body — only its status/header.
 5. **Present both edits for ratification.** Nothing is written until the human approves the pair.

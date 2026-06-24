@@ -20,9 +20,13 @@ glossary, and keeps the glossary current as new concepts appear — so vocabular
 - **Gated (light confirm):** the human ratifies vocabulary — confirms a new term, its definition,
   and which synonyms to ban — before the glossary is edited. Naming is a human call.
 
-## What it checks
+## Config
 
-Load `.in-the-loop.json` for the glossary path and any naming `invariants`, then:
+Reads `.in-the-loop.json` for the glossary path and naming `invariants` if present; otherwise
+auto-detect the glossary (`docs/GLOSSARY.md` or `CONTEXT.md`) and skip invariant greps that have no
+config source.
+
+## What it checks
 
 1. **Undefined terms.** A concept used in code/docs/conversation that has no glossary entry →
    propose one (1–2 sentences, "what it IS, not what it does") with an `_Avoid_:` list of synonyms.

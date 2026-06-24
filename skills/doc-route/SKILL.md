@@ -20,16 +20,23 @@ is the gate that stops it.
   ("this is a decision → ADR"), not an action. Decisions that route to an ADR escalate to the hard
   gate in `new-adr` / `supersede-adr`.
 
+## Config
+
+Reads `.in-the-loop.json` for doc paths if present; otherwise auto-detect (`docs/standards.md`,
+`docs/architecture.md`, `docs/decisions/` or `docs/adr/`, `docs/GLOSSARY.md` or `CONTEXT.md`,
+`docs/roadmap.md`) and ask if ambiguous. Where a sibling skill is named below, use it if installed;
+otherwise do its action inline.
+
 ## The routing rule
 
-Load `.in-the-loop.json` for the project's doc paths, then classify:
+Classify the fact, then send it to its slot:
 
 | The fact is… | Goes to | Notes |
 |---|---|---|
 | A **rule** (must/should, API or engineering policy) | `standards` | feature-agnostic, normative |
 | A **design or rationale** (why the system is shaped this way) | `architecture` | not shipped behavior |
-| A **decision** (a consolidated choice: library, schema, protocol, deviation) | a new **ADR** | hand to `new-adr`; if it contradicts an existing ADR, hand to `supersede-adr` |
-| A **term** (project vocabulary) | `glossary` | hand to `glossary-guard` |
+| A **decision** (a consolidated choice: library, schema, protocol, deviation) | a new **ADR** | record it (use `new-adr` if installed); if it contradicts an existing ADR, supersede it (use `supersede-adr`) |
+| A **term** (project vocabulary) | `glossary` | add the term (use `glossary-guard` if installed) |
 | A **planning item** (unbuilt work, acceptance) | `roadmap` | forward-only, shallow |
 | **Shipped behavior / progress / status** | **code + tests** | NOT a durable doc — let tests capture it |
 
@@ -46,7 +53,8 @@ Load `.in-the-loop.json` for the project's doc paths, then classify:
 1. Restate the fact in one sentence.
 2. Apply the durable-fact test. If it fails, say where it actually belongs and stop.
 3. If it passes, name the target slot and draft the wording in that doc's style.
-4. **Confirm the slot with the human** before writing. For decisions, hand to `new-adr` /
-   `supersede-adr` (which carry their own hard gate) rather than writing the ADR here.
+4. **Confirm the slot with the human** before writing. For decisions, use `new-adr` /
+   `supersede-adr` if installed (they carry the hard gate); otherwise write the ADR into the ADR
+   dir yourself, presenting the draft for approval first.
 5. On confirmation, write only to the chosen slot. Don't restate the same fact in a second doc —
    one fact, one home.

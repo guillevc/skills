@@ -9,9 +9,15 @@ description: >
 
 # Finishing-check
 
-A final sweep before work is called done. The model-invoked guards (`doc-route`, `drift-check`,
-`glossary-guard`) catch most issues *during* work; this skill confirms nothing slipped and runs the
-batch checks that are only meaningful at the end.
+A final sweep before work is called done. When the guards (`doc-route`, `drift-check`,
+`glossary-guard`) are installed they catch most issues *during* work and this is a confirmation;
+installed alone, it is the sole coherence gate.
+
+## Config
+
+Reads `.in-the-loop.json` for `verify`, `invariants`, and `layers` if present. Without config, run
+the universal checks only and ask the user for a verify command; skip project checks that have no
+source.
 
 ## Human-in-the-loop contract
 

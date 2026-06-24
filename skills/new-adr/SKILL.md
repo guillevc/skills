@@ -36,12 +36,24 @@ still open on this branch, finish unfolding first. Premature ADRs freeze the wro
 ## Steps
 
 1. Confirm the decision is consolidated (not mid-debate) and doesn't contradict an existing ADR.
-2. Find the ADR directory and numbering from `.in-the-loop.json` (`docs.adr_dir`); pick the next id.
-3. Draft ~10–25 lines from `ADR-TEMPLATE.md` (in the `setup-in-the-loop` skill folder),
-   `status: accepted`:
-   - **Title** — the decision, stated as a choice.
-   - **Context** — the forces that made a decision necessary.
-   - **Decision** — what was chosen.
-   - **Consequences** — what this enables and costs (the tradeoff accepted, not just the upside).
+2. Find the ADR directory and numbering — from `.in-the-loop.json` (`docs.adr_dir`) if present, else
+   auto-detect (`docs/decisions/` or `docs/adr/`, or ask). Pick the next id.
+3. Draft ~10–25 lines using this template:
+
+   ```markdown
+   # <NNNN> — <decision stated as a choice>
+
+   - **Status:** accepted
+   - **Date:** <YYYY-MM-DD>
+
+   ## Context
+   <The forces that made a decision necessary — constraints, the problem, what was in tension.>
+
+   ## Decision
+   <What was chosen, stated plainly.>
+
+   ## Consequences
+   <What this enables and costs — the tradeoff accepted, not just the upside.>
+   ```
 4. **Present the full draft for ratification.** Do not write the file until the human approves.
 5. On approval, write the new ADR file. Never modify existing ADRs from here.

@@ -86,7 +86,7 @@ The system is project-agnostic. Each adopting project declares its specifics in 
 
 Any doc the project doesn't use → omit the key; skills skip it. `verify` and `invariants` carry the project-specific gates (build/test/lint, custom bans) so the skills stay generic.
 
-The config is validated against [`config.schema.json`](skills/setup-in-the-loop/config.schema.json). Blank doc skeletons (standards, architecture, glossary, roadmap, ADR) live in [`skills/setup-in-the-loop/templates/`](skills/setup-in-the-loop/templates) — `setup-in-the-loop` scaffolds from them on request.
+The config is validated against [`config.schema.json`](skills/setup-in-the-loop/config.schema.json). Blank doc skeletons (standards, architecture, glossary, roadmap, ADR) live in [`skills/setup-in-the-loop/assets/`](skills/setup-in-the-loop/assets) — `setup-in-the-loop` scaffolds from them on request.
 
 ## License
 

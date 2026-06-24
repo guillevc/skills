@@ -13,6 +13,9 @@ One-time bootstrap. The skills are project-agnostic; this generates the per-proj
 points them at your doc paths and gates. Keep it short — infer what you can from the repo, ask only
 what you can't.
 
+The config it writes is optional — the other skills auto-detect — but generating it makes them
+precise.
+
 ## Human-in-the-loop contract
 
 - **Autonomous:** scanning the repo to infer existing doc layout, drafting the config, drafting any
@@ -34,7 +37,7 @@ what you can't.
 3. **Draft `.in-the-loop.json`** with the resolved values, validated against `config.schema.json`
    (in this skill folder). Show it for approval.
 4. **Offer doc skeletons.** For any chosen doc path that doesn't exist yet, offer to create one from
-   `templates/` in this skill folder (`standards.md`, `architecture.md`, `GLOSSARY.md`, `roadmap.md`,
+   `assets/` in this skill folder (`standards.md`, `architecture.md`, `GLOSSARY.md`, `roadmap.md`,
    `ADR-TEMPLATE.md`). Write only on approval.
 5. **On approval, write** `.in-the-loop.json` and any approved skeletons.
 
