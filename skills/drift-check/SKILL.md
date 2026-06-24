@@ -2,9 +2,9 @@
 name: drift-check
 description: >
   Detect contradictions between code and the durable docs (ADRs, standards, architecture), then
-  let the human decide how to resolve each one. Model-invoked while building or reviewing changes;
-  also triggers on "check for drift", "do the docs still match", "audit docs vs code", or
-  /drift-check. Never auto-fixes — it stops and the human picks.
+  let the human decide how to resolve each. Use when building or reviewing changes, or on
+  "check for drift", "do the docs still match", "audit docs vs code", /drift-check. Never
+  auto-fixes — it stops and the human picks.
 ---
 
 # Drift-check
@@ -24,9 +24,8 @@ the code is wrong or the doc is now wrong.
 ## Doc locations
 
 Auto-detect the durable docs by convention (`docs/standards.md`, `docs/architecture.md`,
-`docs/decisions/` or `docs/adr/`). If a project keeps them elsewhere, check its `CLAUDE.md`/
-`AGENTS.md`; else ask once. Where a sibling skill is named below, use it if installed; otherwise do
-its action inline.
+`docs/decisions/`|`docs/adr/`); else the agent doc (`CLAUDE.md`/`AGENTS.md`); else ask. Sibling
+skills named below: use if installed, else do their action inline.
 
 ## Steps
 
@@ -43,14 +42,7 @@ its action inline.
      (use `doc-route` if installed).
 5. Apply only the chosen resolution. Re-run the relevant check to confirm the contradiction is gone.
 
-## Use as delta source for ship-milestone
-
-`ship-milestone` calls `drift-check` to *discover* what changed during a milestone — the deltas to
-fold back into durable docs come from the real code↔doc diff, not a hand-kept work-doc list. Same
-human-picks gate applies to each delta.
-
 ## Don't
 
-- Don't fix drift silently — surfacing and deferring to the human is the whole point.
-- Don't treat shipped-behavior mismatches as drift. Durable docs aren't supposed to track behavior;
-  only flag contradictions of a *rule, design, or decision*.
+Don't treat shipped-behavior mismatches as drift. Durable docs aren't supposed to track behavior;
+only flag contradictions of a *rule, design, or decision*.

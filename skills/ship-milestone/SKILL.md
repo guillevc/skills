@@ -2,9 +2,9 @@
 name: ship-milestone
 description: >
   Close out a milestone: discover what changed, fold durable deltas back into the typed docs, tick
-  roadmap acceptance, and open a PR for human review. Invoked via "ship this", "close the milestone",
-  "wrap up and open a PR", or /ship-milestone. Derives deltas from the real code↔doc diff (via
-  drift-check), not from a hand-kept work doc. Opens the PR but never merges.
+  roadmap acceptance, and open a PR for human review. Use on "ship this", "close the milestone",
+  "wrap up and open a PR", /ship-milestone. Derives deltas from the real code↔doc diff, not from a
+  hand-kept work doc. Opens the PR but never merges.
 ---
 
 # Ship-milestone

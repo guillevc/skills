@@ -1,10 +1,9 @@
 ---
 name: doc-route
 description: >
-  Route a resolved fact into the correct typed durable-doc slot — or to code/tests if it isn't a
-  durable fact at all. Model-invoked whenever you are about to write documentation, record a
-  decision, or capture something learned. Also triggers on "where does this go", "document this",
-  "write this down", or /doc-route. Prevents behavior/progress from leaking into durable docs.
+  Route a resolved fact to its correct typed durable-doc slot — or to code/tests if it isn't a
+  durable fact. Use when about to write documentation, record a decision, capture something learned,
+  or on "where does this go", "write this down", /doc-route.
 ---
 
 # Doc-route
@@ -23,10 +22,9 @@ is the gate that stops it.
 ## Doc locations
 
 Auto-detect the durable docs by convention (`docs/standards.md`, `docs/architecture.md`,
-`docs/decisions/` or `docs/adr/`, `docs/GLOSSARY.md` or `CONTEXT.md`, `docs/roadmap.md`). If a
-project keeps them elsewhere, check its `CLAUDE.md`/`AGENTS.md`; else ask once. Create a doc lazily
-on first real content — don't write a blank file. Where a sibling skill is named below, use it if
-installed; otherwise do its action inline.
+`docs/decisions/`|`docs/adr/`, `docs/GLOSSARY.md`|`CONTEXT.md`, `docs/roadmap.md`); else the agent
+doc (`CLAUDE.md`/`AGENTS.md`); else ask. Create a doc lazily on first real content — never a blank
+file. Sibling skills named below: use if installed, else do their action inline.
 
 ## The routing rule
 

@@ -1,10 +1,10 @@
 ---
 name: glossary-guard
 description: >
-  Keep code and docs aligned with the canonical glossary. Model-invoked when introducing new terms,
-  naming identifiers, or shaping API payloads; also triggers on "check terms", "is this the right
-  word", "vocabulary check", or /glossary-guard. Flags undefined terms, banned synonyms, and
-  project-defined naming invariants — and proposes glossary updates for the human to ratify.
+  Keep code and docs aligned with the canonical glossary. Use when introducing new terms, naming
+  identifiers, or shaping API payloads, or on "check terms", "is this the right word", "vocabulary
+  check", /glossary-guard. Flags undefined terms, banned synonyms, and naming invariants; proposes
+  glossary updates for the human to ratify.
 ---
 
 # Glossary-guard
@@ -32,17 +32,17 @@ Naming invariants come from the agent doc if the project declares any; skip othe
    propose one (1–2 sentences, "what it IS, not what it does") with an `_Avoid_:` list of synonyms.
 2. **Banned synonyms.** A word used where the glossary's `_Avoid_` list says to prefer another →
    flag and suggest the canonical term.
-3. **Naming invariants.** Run the project's `invariants` greps (e.g. "no snake_case in API JSON",
-   "no Get-prefix on getters"). These are project-defined in config, not hardcoded — flag matches.
+3. **Naming invariants.** Run the naming invariants the project declares in its agent doc
+   (e.g. "no snake_case in API JSON", "no Get-prefix on getters") — flag matches.
 4. **Code mirrors glossary.** Identifiers (types, functions, fields) should reflect glossary terms.
    Flag drift between the name in code and the canonical term.
 
 ## Steps
 
-1. Detect the issue and classify it (undefined / banned synonym / invariant / mismatch).
-2. Draft the fix: a glossary entry, a rename suggestion, or a flagged invariant violation.
-3. For glossary additions/edits, **confirm with the human** before writing — they own the vocabulary.
-4. For code naming, propose the rename; the human applies it (or approves applying it).
+1. Detect and classify (undefined / banned synonym / invariant / mismatch).
+2. Draft the fix — a glossary entry, a rename, or a flagged violation.
+3. Glossary edits: **confirm the vocabulary with the human** first — they own it. Renames: propose;
+   the human applies.
 
 ## Entry format
 

@@ -2,9 +2,9 @@
 name: finishing-check
 description: >
   End-gate run before a PR or commit: verify durable docs and code are coherent, then run the
-  project's own verify command and invariant checks. Invoked via "finishing check", "is this ready",
-  "pre-PR check", or /finishing-check. Advisory — it reports pass/fail and stops on failure, but the
-  human decides whether to proceed.
+  project's own verify command and invariant checks. Use before a PR or commit, or on "finishing
+  check", "is this ready", "pre-PR check", /finishing-check. Advisory — it reports pass/fail and
+  stops on failure, but the human decides whether to proceed.
 ---
 
 # Finishing-check
