@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/guillevc/in-the-loop/blob/main/skills/setup-in-the-loop/config.schema.json",
+  "title": "in-the-loop project config",
+  "description": "Per-project configuration read by in-the-loop skills. Lives at .in-the-loop.json in the project root.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "docs": {
+      "description": "Paths to the project's typed durable docs. Omit any the project doesn't use; skills skip absent slots.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "glossary": { "type": "string", "description": "Canonical-terms file." },
+        "adr_dir": { "type": "string", "description": "Directory holding one-per-file ADRs." },
+        "standards": { "type": "string", "description": "Rulebook (normative, feature-agnostic)." },
+        "architecture": { "type": "string", "description": "Design + rationale (not shipped behavior)." },
+        "roadmap": { "type": "string", "description": "Forward-only index of unbuilt work." }
+      }
+    },
+    "verify": {
+      "description": "Project verify command (build/test/lint) run by finishing-check. Must exit non-zero on failure.",
+      "type": "string"
+    },
+    "invariants": {
+      "description": "Project-specific text invariants enforced by finishing-check and glossary-guard.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["grep", "must"],
+        "properties": {
+          "grep": { "type": "string", "description": "Pattern to search for." },
+          "in": { "type": "string", "description": "Path or glob to search within. Defaults to repo root." },
+          "must": { "enum": ["absent", "present"], "description": "Whether matches are a failure (absent) or required (present)." },
+          "note": { "type": "string", "description": "Human-readable reason, shown on failure." }
+        }
+      }
+    },
+    "layers": {
+      "description": "Which optional planning layers the project uses.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "roadmap": { "type": "boolean", "default": true, "description": "Use the roadmap planning layer." },
+        "work_docs": { "type": "boolean", "default": false, "description": "Persist per-milestone build scratch docs. Off by default — ship-milestone derives deltas from drift-check instead." }
+      }
+    }
+  }
+}
