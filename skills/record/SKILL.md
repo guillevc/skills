@@ -37,7 +37,7 @@ or progress. That isn't the spec; let code and tests capture it, and stop. If so
 |---|---|---|
 | a **term** (project vocabulary) | glossary | write/sharpen the entry (format below) |
 | a **decision / rule / constraint / design / deviation** | a new **ADR** | write it (format below); if it reverses an existing ADR, **supersede** (below) |
-| **shipped behavior / progress** | — | not the spec; code and tests |
+| **shipped behavior / progress** | none | not the spec; code and tests |
 
 Auto-detect doc locations: glossary at `docs/GLOSSARY.md`; ADRs at `docs/decisions/` or `docs/adr/`.
 Else check the agent doc (`CLAUDE.md`/`AGENTS.md`), else ask. Create a doc lazily on first real
