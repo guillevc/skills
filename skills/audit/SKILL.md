@@ -35,12 +35,15 @@ behavior; don't flag code just for existing.
 ## Steps
 
 1. Read the living spec, glossary and ADRs. Auto-detect locations (`docs/GLOSSARY.md`;
-   `docs/decisions/`|`docs/adr/`), else the agent doc, else ask.
+   `docs/decisions/`|`docs/adr/`), else the agent doc, else ask. Skip ADRs carrying a
+   `Status: superseded by ...` line; check code only against live decisions.
 2. For each spec claim, check whether the code still honors it, both directions (code vs spec, spec
    vs code).
 3. Present each finding: the claim, where the spec says it, where the code diverges, the resolutions.
+   One finding per independently-fixable divergence; don't merge unrelated drifts into one.
 4. **The human picks** per finding:
    - **Fix the code** to honor the spec, or
    - **Change the spec.** For a reversal, write a superseding ADR via `record` (the merits gate
-     applies); for a term, update the glossary via `record`.
+     applies); for a term (banned word, wrong name, or a concept with no entry), add or update the
+     glossary via `record`.
 5. Apply only the chosen resolution; re-check to confirm it's gone.

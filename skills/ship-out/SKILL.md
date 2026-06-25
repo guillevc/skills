@@ -21,13 +21,16 @@ privileged. No work doc, no persisted plan: the brief is ephemeral, the spec is 
 ## Steps
 
 1. **Brief the goal.** Take the goal (prompt or roadmap entry) and the relevant living spec, and
-   restate it as scope plus acceptance, a tiny ephemeral brief. Confirm it with the human. Don't
-   proceed on a guess; gather missing context now.
-2. **Build against the spec.** Implement. Where the spec is silent or ambiguous, ask rather than
-   invent. A choice that consolidates into a durable decision stops and goes to `record`.
-3. **Reconcile.** Run `audit` to surface where the new code diverges from the spec; fold the deltas
-   back via `record` (new or superseding ADRs, glossary updates). Trim any behavioral prose that
-   crept into the spec; shipped behavior lives in code and tests.
+   restate it as scope plus acceptance, a tiny ephemeral brief. Confirm it if the goal is non-trivial
+   or the spec leaves real gaps; a clear small goal can skip straight to building.
+2. **Build against the spec.** Implement. Default freely on local, reversible choices (a field's
+   name, a helper's shape). Stop and ask only when the choice is a **durable decision** (cross-cutting
+   or hard to reverse); hand that to `record`. Don't halt on every silence, only the load-bearing ones.
+3. **Reconcile.** Surface where the new code diverges from the spec (use `audit` if installed, else
+   diff inline) and fold the deltas back (via `record` if installed, else write inline): new or
+   superseding ADRs, glossary updates. Trim any behavioral prose that crept into the spec; shipped
+   behavior lives in code and tests. If you notice **pre-existing** drift you didn't cause, surface
+   it for the human, but don't silently fix it or expand this unit's scope.
 4. **Verify.** Run the project's verify command (detect it: `go.mod` to `go test ./...`,
    `package.json` to its test script, a `justfile`/`Makefile` to the test target; else read the
    agent doc or ask). Must pass.

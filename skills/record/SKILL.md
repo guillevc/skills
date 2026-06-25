@@ -67,8 +67,12 @@ _Avoid_: synonym1, synonym2
 <1–3 sentences: the context, what was decided, and why.>
 ```
 
-Add `Status`, `Considered options`, or `Consequences` **only when they earn their place**; most
-ADRs won't need them. Number by scanning the ADR dir for the highest id and incrementing.
+Add `Considered options` or `Consequences` **only when they earn their place**; most ADRs won't
+need them. Number by scanning the ADR dir for the highest id and incrementing.
+
+**Status convention:** an ADR with no `Status` line is live. Don't write `Status: accepted` — absence
+means live. The only status ever written is `Status: superseded by <id>`, stamped when an ADR is
+reversed (see below). So a reader (and `audit`) tells live from dead by the presence of that one line.
 
 ### Only record an ADR when all three hold
 
@@ -86,13 +90,15 @@ ADRs are immutable; reverse one only by writing a new ADR that supersedes it.
 ADR existed. Never "the old ADR is inconvenient," never defend the old one just because it's
 written. If the merits favor change, supersede. If not, keep the existing ADR and record nothing.
 
-Then: draft the new ADR with a `Supersedes: <old-id>` line; mark the old one `Status: superseded by
-<new-id>` (header only; never touch its body). Present both for ratification; write both or neither.
+Then: draft the new ADR with a `Supersedes: <old-id>` line; add a `Status: superseded by <new-id>`
+line directly under the old one's title (never touch its body). Present both for ratification; write
+both or neither.
 
 ## Steps
 
 1. Restate the fact in one sentence; run the durable-fact test and route it per the table.
-2. For an ADR, apply the three-test gate; if it reverses one, run the merits gate.
+2. For an ADR: if it reverses an existing one, run the merits gate first (it can stop you cold);
+   then apply the three-test gate.
 3. Draft the entry in the slot's format.
 4. **Confirm with the human** (hard gate for ADRs), then write. One fact, one home; don't restate
    it elsewhere.

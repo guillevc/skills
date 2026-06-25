@@ -35,11 +35,12 @@ important is left implicit, then let the resolved facts become durable entries. 
    conflicting term surfaces, flag it and hand it to `record` (which sharpens and writes it).
 5. **Done = nothing important left implicit.** Every branch is either resolved or explicitly parked.
    A resolved branch that's a durable fact goes to `record`; one that's just behavior is left for
-   the build.
+   the build. A parked branch is noted in the output for later, not handed to `record`.
 
 ## Output
 
 - A concise resolution per branch.
 - **Acceptance-shaped** statements for anything observable, phrased so they could brief a build
   (or seed a roadmap entry, if you keep one).
-- A handoff list: which resolutions `record` should write to the living spec.
+- A handoff list of resolved durable facts for `record`. List the facts; `record` classifies each
+  into its slot (glossary or ADR). Don't pre-route them yourself.
