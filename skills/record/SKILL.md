@@ -28,15 +28,10 @@ this skill writes both:
 - **Gated (hard):** ADRs are immutable. Present the draft and get an explicit go-ahead before
   writing a new ADR or a superseding one. Never edit an existing ADR in place.
 
-## The durable-fact test (apply first)
-
-> Does this change a **rule, a design, a decision, or a term**?
-
-- **No** → it's behavior or progress. It does not belong in the living spec — let code + tests
-  capture it. Stop.
-- **Yes** → pick the slot and write.
-
 ## Routing
+
+The **durable-fact test**: does this change a rule, design, decision, or term? If not, it's behavior
+or progress — not the spec; let code + tests capture it, and stop. If so, route it:
 
 | The fact is… | Slot | How |
 |---|---|---|
@@ -96,9 +91,8 @@ Then: draft the new ADR with a `Supersedes: <old-id>` line; mark the old one `St
 
 ## Steps
 
-1. Restate the fact in one sentence; apply the durable-fact test.
-2. Pick the slot (term → glossary; decision/rule/etc → ADR).
-3. For an ADR, apply the three-test gate; if reversing, run the merits gate.
-4. Draft the entry in the slot's format.
-5. **Confirm with the human** (hard gate for ADRs), then write. One fact, one home — don't restate
+1. Restate the fact in one sentence; run the durable-fact test and route it per the table.
+2. For an ADR, apply the three-test gate; if it reverses one, run the merits gate.
+3. Draft the entry in the slot's format.
+4. **Confirm with the human** (hard gate for ADRs), then write. One fact, one home — don't restate
    it elsewhere.

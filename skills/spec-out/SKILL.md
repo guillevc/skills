@@ -39,5 +39,3 @@ important is left implicit — then let the resolved facts become durable entrie
 - **Acceptance-shaped** statements for anything observable — phrased so they could brief a build
   (or seed a roadmap entry, if you keep one).
 - A handoff list: which resolutions `record` should write to the living spec.
-
-Then stop and let the human decide what to land. Don't write the spec from here — that's `record`.
