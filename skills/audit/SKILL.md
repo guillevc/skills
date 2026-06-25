@@ -1,10 +1,11 @@
 ---
 name: audit
 description: >
-  Audit code against the living spec, both the ADRs (decisions, rules, constraints) and the glossary
-  (terms), and let the human decide how to resolve each contradiction. Use when building or
-  reviewing changes, or on "check for drift", "do the docs still match", "audit code vs spec",
-  /audit. Reports; never auto-fixes. It stops and the human picks.
+  Audit code against the living spec (ADRs and the glossary) and let the human resolve each
+  contradiction. Use proactively whenever you write or change code that touches a documented
+  decision, rule, or term, and after a build or before a commit/PR, even if the user doesn't ask.
+  Also on "check for drift", "do the docs still match", "audit code vs spec", /audit, or when
+  ship-out reconciles. Reports; never auto-fixes. It stops and the human picks.
 ---
 
 # Audit

@@ -1,11 +1,12 @@
 ---
 name: record
 description: >
-  Write a resolved fact into the living spec, a glossary term or an ADR, and keep it coherent.
-  Use whenever a durable fact crystallizes: a decision is made, a rule or constraint is set, a term
-  is pinned down, or an existing decision is reversed. Also on "record this", "write an ADR",
-  "add to the glossary", "supersede that decision", /record. Drafts for human ratification; durable
-  writes are gated.
+  Write a resolved fact into the living spec (a glossary term or an ADR) and keep it coherent.
+  Use proactively the moment a durable fact settles, even if the user never says "record" or "ADR":
+  a decision made, a library/tool/protocol/schema chosen, a rule or constraint set, a term's meaning
+  pinned, or a past decision reversed. Also on "record this", "write an ADR", "add to the glossary",
+  "supersede that decision", /record, or when spec-out, ship-out, or audit needs to write the spec.
+  Drafts for human ratification; durable writes are gated.
 ---
 
 # Record
