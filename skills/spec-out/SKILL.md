@@ -26,7 +26,11 @@ important is left implicit, then let the resolved facts become durable entries. 
    can be tracked to closure.
 3. **Interrogate, one branch at a time.** Ask the single sharpest question that most reduces
    uncertainty: one that exposes a hidden assumption, an edge case, a failure mode, or a conflict
-   with an existing decision. One focused question per turn beats a wall of them.
+   with an existing decision. One focused question per turn beats a wall of them. Two rules:
+   - **Recommend an answer.** Propose your best answer with the question, so the human reacts to a
+     concrete option instead of starting from blank.
+   - **Look before you ask.** If the answer is discoverable in the code or the spec, find it
+     yourself and confirm it; don't spend a question on what you can read.
 4. **Use the project's vocabulary.** Phrase questions in glossary terms; when a new term surfaces,
    resolve it and hand it to `record`.
 5. **Done = nothing important left implicit.** Every branch is either resolved or explicitly parked.
