@@ -44,20 +44,25 @@ this skill writes both:
 | a **decision / rule / constraint / design / deviation** | a new **ADR** | write it (format below); if it reverses an existing ADR, **supersede** (below) |
 | **shipped behavior / progress** | — | not the spec; code + tests |
 
-Auto-detect doc locations: glossary at `docs/GLOSSARY.md` or `CONTEXT.md`; ADRs at `docs/decisions/`
-or `docs/adr/`. Else check the agent doc (`CLAUDE.md`/`AGENTS.md`), else ask. Create a doc lazily on
-first real entry — never a blank file.
+Auto-detect doc locations: glossary at `docs/GLOSSARY.md`; ADRs at `docs/decisions/` or `docs/adr/`.
+Else check the agent doc (`CLAUDE.md`/`AGENTS.md`), else ask. Create a doc lazily on first real
+entry — never a blank file.
 
-## Glossary entry format
+## Glossary
+
+The glossary is the project's **ubiquitous language** — the canonical term for each concept,
+mirrored everywhere (code, docs, conversation) and enforced against code by `drift-check`. It's a
+pure term list: no implementation details, no decisions. A relationship between concepts ("an Order
+owns its line items") is a *decision* → ADR, not a glossary entry. Sharpen fuzzy terms, challenge
+conflicts with existing entries, keep the avoid-list current.
+
+Optional one-line header naming the domain the project covers. Each entry:
 
 ```
 **Term**:
 One or two sentences. What it IS, not what it does.
 _Avoid_: synonym1, synonym2
 ```
-
-The glossary is a glossary — no implementation details, no decisions. Sharpen fuzzy terms, challenge
-conflicts with existing entries, keep the avoid-list current.
 
 ## ADR format (light by default)
 

@@ -7,8 +7,8 @@ disable-model-invocation: true
 # Ship
 
 Take a unit of work from goal to shipped. The **living spec** (glossary + ADRs) is what you build
-*from* and reconcile *to*. The goal can come from anywhere — your prompt, a roadmap entry, an issue;
-none is privileged. No work doc, no persisted plan: the brief is ephemeral, the spec is durable.
+*from* and reconcile *to*. The goal can come from your prompt or a roadmap entry — neither
+privileged. No work doc, no persisted plan: the brief is ephemeral, the spec is durable.
 
 ## Human-in-the-loop contract
 
@@ -20,7 +20,7 @@ none is privileged. No work doc, no persisted plan: the brief is ephemeral, the 
 
 ## Steps
 
-1. **Brief the goal.** Take the goal (prompt / roadmap / issue) and the relevant living spec, and
+1. **Brief the goal.** Take the goal (prompt or roadmap entry) and the relevant living spec, and
    restate it as scope + acceptance — a tiny ephemeral brief. Confirm it with the human. Don't
    proceed on a guess; gather missing context now.
 2. **Build against the spec.** Implement. Where the spec is silent or ambiguous, ask rather than

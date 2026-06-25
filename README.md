@@ -21,7 +21,7 @@ npx skills add guillevc/in-the-loop
 npx skills add guillevc/in-the-loop --skill <name>
 ```
 
-Zero-config. Skills auto-detect your doc layout by convention (`docs/decisions/` or `docs/adr/`, `GLOSSARY.md` or `CONTEXT.md`); if a project keeps docs elsewhere, they read your `CLAUDE.md`/`AGENTS.md`, else ask once. Docs are created lazily on first real content; nothing is scaffolded upfront.
+Zero-config. Skills auto-detect your doc layout by convention (`docs/GLOSSARY.md`, `docs/decisions/` or `docs/adr/`); if a project keeps docs elsewhere, they read your `CLAUDE.md`/`AGENTS.md`, else ask once. Docs are created lazily on first real content; nothing is scaffolded upfront.
 
 ## The principle
 
@@ -50,7 +50,7 @@ Two durable *kinds* of knowledge — they behave differently, so they're separat
 
 **ADRs are light:** title + 1–3 sentences by default; add sections only when they earn it. Only record one when all three hold — **hard to reverse · surprising without context · a real trade-off** — otherwise skip it.
 
-**Planning is optional and external.** Keep a `roadmap.md` if you want one (hand-maintained); `ship` reads its goal from a roadmap entry, an issue, or your prompt — none privileged. The system doesn't own planning.
+**Planning is optional and external.** Keep a `roadmap.md` if you want one (hand-maintained); `ship` reads its goal from a roadmap entry or your prompt — neither privileged. The system doesn't own planning.
 
 ## Skills
 
@@ -80,7 +80,7 @@ Two moves you make; the guards do the rest automatically.
      │   resolved facts ─► record ─► living spec (glossary + ADRs)
      ▼
   /ship ─────────────────► build
-     │   brief the goal (prompt / roadmap / issue) + read the spec
+     │   brief the goal (prompt or roadmap) + read the spec
      │   implement (ask when the spec is silent; new decisions ─► record)
      │   drift-check ─► reconcile ─► record   (keep spec coherent)
      │   verify (run tests)

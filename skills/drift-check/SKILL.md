@@ -34,7 +34,7 @@ don't flag code just for existing.
 
 ## Steps
 
-1. Read the living spec — glossary + ADRs. Auto-detect locations (`docs/GLOSSARY.md`|`CONTEXT.md`;
+1. Read the living spec — glossary + ADRs. Auto-detect locations (`docs/GLOSSARY.md`;
    `docs/decisions/`|`docs/adr/`), else the agent doc, else ask.
 2. For each spec claim, check whether the code still honors it — both directions (code vs spec, spec
    vs code).
