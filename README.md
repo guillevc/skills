@@ -1,4 +1,4 @@
-# livingspec
+# living-spec
 
 **Human-in-the-loop, spec-driven development around a living spec.** Your living spec is the source the agent builds from and stays coherent with, and you ratify every durable or outward step.
 
@@ -9,16 +9,16 @@ The **living spec** is the heart: two kinds of durable knowledge, kept coherent 
 
 It doubles as engineered context: typed, fresh, and token-cheap for the agent to consume.
 
-Most agent setups are *autonomy-forward*: the agent interviews you, then writes and acts on its own. `livingspec` is *ratification-forward*. No durable or irreversible change lands without an explicit human gate, and gate strength tracks reversibility, so cheap stuff stays frictionless while only immutable or outward actions earn a full review.
+Most agent setups are *autonomy-forward*: the agent interviews you, then writes and acts on its own. `living-spec` is *ratification-forward*. No durable or irreversible change lands without an explicit human gate, and gate strength tracks reversibility, so cheap stuff stays frictionless while only immutable or outward actions earn a full review.
 
 ## Install
 
 ```sh
 # browse and select skills to install
-npx skills add guillevc/livingspec
+npx skills add guillevc/living-spec
 
 # specific skill
-npx skills add guillevc/livingspec --skill <name>
+npx skills add guillevc/living-spec --skill <name>
 ```
 
 Zero-config. Skills auto-detect your doc layout by convention (`docs/GLOSSARY.md`, `docs/decisions/` or `docs/adr/`). If a project keeps docs elsewhere, they read your `CLAUDE.md`/`AGENTS.md`, else ask once. Docs are created lazily on first real content; nothing is scaffolded upfront.
