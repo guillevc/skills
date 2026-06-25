@@ -1,48 +1,46 @@
 ---
 name: drift-check
 description: >
-  Detect contradictions between code and the durable docs (ADRs, standards, architecture), then
-  let the human decide how to resolve each. Use when building or reviewing changes, or on
-  "check for drift", "do the docs still match", "audit docs vs code", /drift-check. Never
-  auto-fixes — it stops and the human picks.
+  Check code against the living spec — ADRs (decisions, rules, constraints) and the glossary
+  (terms) — and let the human decide how to resolve each contradiction. Use when building or
+  reviewing changes, or on "check for drift", "do the docs still match", "audit code vs spec",
+  /drift-check. Never auto-fixes — it stops and the human picks.
 ---
 
 # Drift-check
 
-Keep the **living spec** living. Find places where shipped code contradicts what the durable docs
-say, in both directions. This is the executable form of "stop on drift": the agent surfaces the
-conflict, the human decides whether the code is wrong or the doc is now wrong.
+Keep the **living spec** living. Find every place shipped code contradicts the spec, in both
+directions, and surface it. The companion guard `record` *writes* the spec; this one *checks* code
+against it. The agent surfaces the conflict; the human decides which side is wrong.
+
+## What counts as drift
+
+The living spec is glossary + ADRs, so check code against both:
+
+- **Decisions / rules / constraints (ADRs).** Code violates a decision or rule an ADR asserts, or an
+  ADR still asserts something the code has moved past.
+- **Terms (glossary).** Code uses a word the glossary bans (`_Avoid_`), names something against the
+  canonical term, or uses a concept that has no entry yet.
+
+Not drift: shipped behavior that no rule/decision/term governs. The spec doesn't track behavior —
+don't flag code just for existing.
 
 ## Human-in-the-loop contract
 
-- **Autonomous:** scanning code against the durable docs, identifying contradictions, presenting
-  them with enough context to decide.
-- **Gated (hard — human picks):** every finding stops for a decision. The agent never silently
-  edits code or docs to "fix" drift. A doc fix that reverses a decision is done as a superseding ADR
-  (use `supersede-adr` if installed).
-
-## Doc locations
-
-Auto-detect the durable docs by convention (`docs/standards.md`, `docs/architecture.md`,
-`docs/decisions/`|`docs/adr/`); else the agent doc (`CLAUDE.md`/`AGENTS.md`); else ask. Sibling
-skills named below: use if installed, else do their action inline.
+- **Autonomous:** scanning code against the spec, identifying contradictions, presenting each with
+  enough context to decide.
+- **Gated (hard — human picks):** every finding stops for a decision. Never silently edit code or
+  spec to "fix" drift.
 
 ## Steps
 
-1. Read the durable docs (standards, architecture, ADRs) — auto-detected per above.
-2. For each durable claim, check whether the code still honors it. Look both ways:
-   - **Code contradicts a doc** — code violates a rule/decision/design the docs assert.
-   - **Doc contradicts code** — a doc still asserts something the code has moved past (stale claim).
-3. Present each finding as: the claim, where the doc says it, where the code diverges, and the two
-   resolution paths.
+1. Read the living spec — glossary + ADRs. Auto-detect locations (`docs/GLOSSARY.md`|`CONTEXT.md`;
+   `docs/decisions/`|`docs/adr/`), else the agent doc, else ask.
+2. For each spec claim, check whether the code still honors it — both directions (code vs spec, spec
+   vs code).
+3. Present each finding: the claim, where the spec says it, where the code diverges, the resolutions.
 4. **The human picks** per finding:
-   - **(a) Fix the code** to honor the doc, or
-   - **(b) Change the doc.** If this *reverses a decision*, don't edit the ADR — write a superseding
-     one (use `supersede-adr` if installed). For a rule/design update, route it to the right doc
-     (use `doc-route` if installed).
-5. Apply only the chosen resolution. Re-run the relevant check to confirm the contradiction is gone.
-
-## Don't
-
-Don't treat shipped-behavior mismatches as drift. Durable docs aren't supposed to track behavior;
-only flag contradictions of a *rule, design, or decision*.
+   - **Fix the code** to honor the spec, or
+   - **Change the spec** — for a reversal, write a superseding ADR via `record` (merits gate
+     applies); for a term, update the glossary via `record`.
+5. Apply only the chosen resolution; re-check to confirm it's gone.
