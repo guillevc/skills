@@ -1,10 +1,7 @@
 ---
 name: ship-milestone
-description: >
-  Build a milestone from the living spec, keep code and docs coherent, and deliver it. Reads the
-  typed durable docs as the spec, asks for any missing context, implements, folds new decisions and
-  drift back into the docs, then optionally commits or opens a PR. Use on "ship this", "build the
-  milestone", "implement and open a PR", /ship-milestone. Never merges.
+description: Build a milestone from the living spec — implement, reconcile docs, optionally commit or open a PR. Never merges.
+disable-model-invocation: true
 ---
 
 # Ship-milestone

@@ -39,13 +39,13 @@ Every skill declares its gates in a **Human-in-the-loop contract** section: what
 
 The spec is **typed by durability** — each doc changes only when its kind of fact changes. Together they're the source the agent builds from and reconciles against:
 
-| Doc | Holds | Changes when |
-|---|---|---|
-| standards | rules (API/engineering rulebook) | a rule changes |
-| architecture | design + rationale (not shipped behavior) | a design decision changes |
-| decisions (ADRs) | one decision per file, immutable | a new decision is made (supersede, never rewrite) |
-| glossary | canonical terms; code mirrors them | a term is added/redefined |
-| roadmap | forward-only index of unbuilt work, shallow | work is planned or shipped |
+| Doc | Holds | Changes when | Written by |
+|---|---|---|---|
+| standards | rules (API/engineering rulebook) | a rule changes | `doc-route` (you ratify) |
+| architecture | design + rationale (not shipped behavior) | a design decision changes | `doc-route` |
+| decisions (ADRs) | one decision per file, immutable | a new decision is made (supersede, never rewrite) | `new-adr` / `supersede-adr` |
+| glossary | canonical terms; code mirrors them | a term is added/redefined | `glossary-guard` |
+| roadmap | forward-only index of unbuilt work, shallow | work is planned or shipped | `unfold` plans, `ship-milestone` ticks |
 
 **The durable-fact rule:** durable docs change *only* when durable fact changes — rule → standards, design/rationale → architecture, decision → ADR. Everything else (progress, status, shipped behavior) lives in code + tests, not docs. Code documents shipped behavior; don't restate it.
 
@@ -64,7 +64,43 @@ The spec is **typed by durability** — each doc changes only when its kind of f
 | `ship-milestone` | Build a milestone from the living spec, reconcile docs, optionally PR | gated build + outward |
 | `finishing-check` | End-gate: spec↔code coherence + project verify/invariants | advisory |
 
-`doc-route`, `drift-check`, `glossary-guard` are model-invoked guards (run during work). The rest are invoked by a guard or the user.
+### How each skill is invoked
+
+`disable-model-invocation` (a Claude Code frontmatter field) decides this; there is no portable standard, so the intent is documented here too.
+
+- **Guards — model-invoked, fire autonomously during any work:** `doc-route`, `drift-check`, `glossary-guard`. You rarely call these by name; they trigger when you're about to write a doc, when code and docs diverge, or when vocabulary drifts.
+- **Reach — model-invoked, called by a sibling skill or by you:** `new-adr`, `supersede-adr`, `finishing-check`.
+- **Explorer — model-invoked or `/unfold`:** `unfold`. Auto-fires before a non-trivial change; writes nothing, so auto-firing is safe.
+- **User-invoked only — `/ship-milestone`:** the one skill that never auto-fires. Building and delivering is a deliberate, outward act, so it waits for you to ask (`disable-model-invocation: true`).
+
+## Workflow
+
+The loop, end to end. Guards run continuously underneath every phase.
+
+```
+  /unfold ───────────────► shape the living spec
+     │   (grill until every branch maps to a slot)
+     ▼
+  doc-route / new-adr ────► land decisions into the spec
+     │   (standards · architecture · ADRs · glossary · roadmap)
+     ▼
+  /ship-milestone ───────► build from the spec
+     │   reads spec → implements (asks when ambiguous)
+     │   drift-check + doc-route ─► reconcile docs ◄─ keep spec living
+     │   finishing-check ────────► verify + coherence gate
+     ▼
+  commit / PR ───────────► deliver (you review + merge)
+```
+
+| Phase | Skill(s) | Who triggers | Input → Output |
+|---|---|---|---|
+| **Shape** | `unfold` | model or you | a rough plan → resolved branches tagged by slot, acceptance-shaped statements |
+| **Land decisions** | `doc-route`, `new-adr`, `supersede-adr`, `glossary-guard` | guards (auto) + you ratify | a resolved fact → an entry in the right spec doc |
+| **Build** | `ship-milestone` | you (`/ship-milestone`) | the living spec + your answers → an implementation |
+| **Reconcile** | `drift-check` → `doc-route`/`supersede-adr` | inside `ship-milestone`, or auto | code↔doc deltas → coherent docs |
+| **Check & deliver** | `finishing-check`, then commit/PR | inside `ship-milestone` | the change → a gated PR (never merged) |
+
+**Building the spec docs:** you don't write them by hand. A fact resolved in `unfold` (or surfaced mid-build) is routed by `doc-route` to its one home per the durable-fact rule — rule → standards, design → architecture, decision → ADR (`new-adr`), term → glossary (`glossary-guard`), unbuilt work → roadmap. Each doc is created lazily on its first real entry; you ratify every durable write.
 
 ## License
 
