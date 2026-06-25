@@ -19,7 +19,7 @@ this skill writes both:
   deviations.
 
 `record` classifies a resolved fact, picks the slot, and writes it. The companion guard
-`drift-check` checks code *against* what's recorded.
+`audit` checks code *against* what's recorded.
 
 ## Human-in-the-loop contract
 
@@ -51,7 +51,7 @@ entry — never a blank file.
 ## Glossary
 
 The glossary is the project's **ubiquitous language** — the canonical term for each concept,
-mirrored everywhere (code, docs, conversation) and enforced against code by `drift-check`. It's a
+mirrored everywhere (code, docs, conversation) and enforced against code by `audit`. It's a
 pure term list: no implementation details, no decisions. A relationship between concepts ("an Order
 owns its line items") is a *decision* → ADR, not a glossary entry. Sharpen fuzzy terms, challenge
 conflicts with existing entries, keep the avoid-list current.

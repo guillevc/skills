@@ -1,13 +1,13 @@
 ---
-name: drift-check
+name: audit
 description: >
-  Check code against the living spec — ADRs (decisions, rules, constraints) and the glossary
+  Audit code against the living spec — ADRs (decisions, rules, constraints) and the glossary
   (terms) — and let the human decide how to resolve each contradiction. Use when building or
   reviewing changes, or on "check for drift", "do the docs still match", "audit code vs spec",
-  /drift-check. Never auto-fixes — it stops and the human picks.
+  /audit. Reports; never auto-fixes — it stops and the human picks.
 ---
 
-# Drift-check
+# Audit
 
 Keep the **living spec** living. Find every place shipped code contradicts the spec, in both
 directions, and surface it. The companion guard `record` *writes* the spec; this one *checks* code
