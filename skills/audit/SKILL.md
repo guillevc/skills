@@ -35,8 +35,9 @@ behavior; don't flag code just for existing.
 ## Steps
 
 1. Read the living spec, glossary and ADRs. Auto-detect locations (`docs/GLOSSARY.md`;
-   `docs/decisions/`|`docs/adr/`), else the agent doc, else ask. Skip ADRs carrying a
-   `Status: superseded by ...` line; check code only against live decisions.
+   `docs/decisions/`|`docs/adr/`), else the agent doc, else ask. Skip superseded ADRs: one carrying
+   a `Status: superseded by ...` line, or one another ADR's `Supersedes:` line points to (check both
+   directions). Audit code only against live decisions.
 2. For each spec claim, check whether the code still honors it, both directions (code vs spec, spec
    vs code).
 3. Present each finding: the claim, where the spec says it, where the code diverges, the resolutions.
