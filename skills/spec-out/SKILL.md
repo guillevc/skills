@@ -31,8 +31,8 @@ important is left implicit, then let the resolved facts become durable entries. 
      concrete option instead of starting from blank.
    - **Look before you ask.** If the answer is discoverable in the code or the spec, find it
      yourself and confirm it; don't spend a question on what you can read.
-4. **Use the project's vocabulary.** Phrase questions in glossary terms; when a new term surfaces,
-   resolve it and hand it to `record`.
+4. **Use the project's vocabulary.** Phrase questions in glossary terms; when a fuzzy, undefined, or
+   conflicting term surfaces, flag it and hand it to `record` (which sharpens and writes it).
 5. **Done = nothing important left implicit.** Every branch is either resolved or explicitly parked.
    A resolved branch that's a durable fact goes to `record`; one that's just behavior is left for
    the build.
