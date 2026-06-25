@@ -70,7 +70,7 @@ _Avoid_: synonym1, synonym2
 Add `Considered options` or `Consequences` **only when they earn their place**; most ADRs won't
 need them. Number by scanning the ADR dir for the highest id and incrementing.
 
-**Status convention:** an ADR with no `Status` line is live. Don't write `Status: accepted` — absence
+**Status convention:** an ADR with no `Status` line is live. Don't write `Status: accepted`; absence
 means live. The only status ever written is `Status: superseded by <id>`, stamped when an ADR is
 reversed (see below). So a reader (and `audit`) tells live from dead by the presence of that one line.
 
