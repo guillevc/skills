@@ -2,45 +2,34 @@
 name: spec-out
 description: Spec out a feature or design through a relentless interview, landing the resolved facts in the living spec. User-invoked.
 disable-model-invocation: true
+argument-hint: <feature or design to spec out>
 ---
 
 # Spec-out
 
-Turn a fuzzy idea into living spec. Interrogate a plan or design branch by branch until nothing
-important is left implicit, then let the resolved facts become durable entries. This is the
-*discovery* half of the loop: the human answers, the agent questions. Writing is `record`'s job.
+Turn a fuzzy idea into living spec. Interrogate a plan branch by branch until nothing important is
+implicit, then hand the resolved facts to `record` to write. You question; the human answers. You
+write nothing yourself.
 
 ## Human-in-the-loop contract
 
-- **Autonomous:** asking questions, proposing options, mapping the open decision tree, reading the
-  existing spec to avoid re-litigating settled ground.
-- **Gated:** `spec-out` writes nothing itself. When a fact resolves, it hands off to `record`
-  (which carries the write gate). The human decides what gets recorded.
+- **Autonomous:** asking, proposing options, mapping the decision tree, reading the existing spec.
+- **Gated:** every write goes through `record`. The human decides what gets recorded.
 
 ## Loop
 
-1. **Read the ground first.** Skim the living spec (glossary and ADRs, wherever the project keeps
-   them). Don't re-open anything settled there; treat settled records as given unless the human
-   reopens them. If they do, that's a *supersede* decision, not a quiet override.
-2. **Map the tree.** Restate the plan as a small set of open branches and unknowns, named so each
-   can be tracked to closure.
-3. **Interrogate, one branch at a time.** Ask the single sharpest question that most reduces
-   uncertainty: one that exposes a hidden assumption, an edge case, a failure mode, or a conflict
-   with an existing decision. One focused question per turn beats a wall of them. Two rules:
-   - **Recommend an answer.** Propose your best answer with the question, so the human reacts to a
-     concrete option instead of starting from blank.
-   - **Look before you ask.** If the answer is discoverable in the code or the spec, find it
-     yourself and confirm it; don't spend a question on what you can read.
-4. **Use the project's vocabulary.** Phrase questions in glossary terms; when a fuzzy, undefined, or
-   conflicting term surfaces, flag it and hand it to `record` (which sharpens and writes it).
-5. **Done = nothing important left implicit.** Every branch is either resolved or explicitly parked.
-   A resolved branch that's a durable fact goes to `record`; one that's just behavior is left for
-   the build. A parked branch is noted in the output for later, not handed to `record`.
+1. **Read the ground.** Skim the spec (glossary, ADRs). Treat settled records as given; reopening one
+   is a *supersede*, not a quiet override.
+2. **Map the tree.** Restate the plan as named open branches.
+3. **Interrogate one branch at a time.** Ask the single sharpest question that most cuts uncertainty:
+   a hidden assumption, edge case, failure mode, or conflict with an existing decision. Recommend
+   your best answer with it. If the code or spec already answers, read it instead of asking.
+4. **Use the project's vocabulary.** Phrase questions in glossary terms; flag any fuzzy or
+   conflicting term.
+5. **Done = nothing important left implicit.** Each branch is resolved or explicitly parked.
 
 ## Output
 
-- A concise resolution per branch.
-- **Acceptance-shaped** statements for anything observable, phrased so they could brief a build
-  (or seed a roadmap entry, if you keep one).
-- A handoff list of resolved durable facts for `record`. List the facts; `record` classifies each
-  into its slot (glossary or ADR). Don't pre-route them yourself.
+- One concise resolution per branch, **acceptance-shaped** for anything observable.
+- A handoff list of resolved durable facts. `record` classifies each into glossary or ADR; don't
+  pre-route them.
