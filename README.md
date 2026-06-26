@@ -7,9 +7,9 @@ The **living spec** is the heart: two kinds of durable knowledge, kept coherent 
 - a **glossary**: what your words mean;
 - **ADRs**: what you decided (architecture, rules, constraints, technology, deviations: every durable choice).
 
-It doubles as engineered context: typed, fresh, and token-cheap for the agent to consume.
+It doubles as engineered context: typed, fresh, token-cheap.
 
-Most agent setups are *autonomy-forward*: the agent interviews you, then writes and acts on its own. `living-spec` is *ratification-forward*. No durable or irreversible change lands without an explicit human gate, and gate strength tracks reversibility, so cheap stuff stays frictionless while only immutable or outward actions earn a full review.
+Most agent setups are *autonomy-forward*: the agent interviews you, then writes and acts on its own. `living-spec` is *ratification-forward*. No durable or irreversible change lands without an explicit human gate, and gate strength tracks reversibility, so cheap reversible work stays frictionless while only immutable or outward actions earn a full review.
 
 ## Install
 
@@ -48,7 +48,7 @@ Two durable *kinds* of knowledge. They behave differently, so they're separate d
 
 **The durable-fact rule:** the spec changes *only* when durable fact changes. A term goes to the glossary; any decision, rule, or constraint goes to an ADR. Everything else (progress, status, shipped behavior) lives in code and tests. Code documents behavior; don't restate it in the spec.
 
-**ADRs are light:** title plus 1–3 sentences by default; add sections only when they earn it. Record one only when all three hold (hard to reverse, surprising without context, a real trade-off), otherwise skip it.
+**ADRs are light:** title plus 1-3 sentences by default; add sections only when they earn it. Record one only when all three hold (hard to reverse, surprising without context, a real trade-off), otherwise skip it.
 
 **Planning is optional and external.** Keep a `roadmap.md` if you want one (hand-maintained); `ship-out` reads its goal from a roadmap entry or your prompt, neither privileged. The system doesn't own planning.
 
