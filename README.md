@@ -54,10 +54,11 @@ Two durable *kinds* of knowledge. They behave differently, so they're separate d
 
 ## Skills
 
-Four skills. Two ambient guards that fire during work; two verbs you invoke.
+Five skills. Two ambient guards that fire during work; three verbs you invoke.
 
 | Skill | Role | Invocation |
 |---|---|---|
+| `init-spec` | Cold-start: extract the terms and decisions already baked into an existing codebase; hand them to `record`. Run once at adoption | **`/init-spec`** (user) |
 | `spec-out` | Discover: interrogate a plan until nothing important is implicit; hand resolved facts to `record` | **`/spec-out`** (user) |
 | `record` | Write the living spec: a glossary term or an ADR (including supersede, with the merits gate) | guard (model) |
 | `audit` | Check code against the living spec (decisions, rules, terms); human picks the fix | guard (model) |
@@ -68,13 +69,16 @@ Four skills. Two ambient guards that fire during work; two verbs you invoke.
 `disable-model-invocation` (a Claude Code frontmatter field) decides this. There's no portable standard, so the intent is documented here too.
 
 - **Guards, model-invoked, fire autonomously during any work:** `record` (when a durable fact crystallizes) and `audit` (when code and spec diverge). One writes the spec, one checks code against it.
-- **Verbs, user-invoked only (`disable-model-invocation: true`):** `spec-out` (deliberate discovery) and `ship-out` (deliberate build and outward delivery). Neither auto-fires.
+- **Verbs, user-invoked only (`disable-model-invocation: true`):** `init-spec` (one-time cold-start), `spec-out` (deliberate discovery), and `ship-out` (deliberate build and outward delivery). None auto-fire.
 
 ## Workflow
 
 Two moves you make; the guards do the rest automatically.
 
 ```
+  /init-spec ────────────► cold-start (once, on an existing repo)
+     │   extract implicit terms + decisions ─► record ─► living spec
+     ▼
   /spec-out ─────────────► discover
      │   interrogate until nothing important is implicit
      │   resolved facts ─► record ─► living spec (glossary + ADRs)
@@ -90,6 +94,7 @@ Two moves you make; the guards do the rest automatically.
 
 | Phase | Skill | Who | Input to output |
 |---|---|---|---|
+| **Cold-start** *(once)* | `init-spec` | you | an existing codebase to an initial glossary + ADRs (`record` writes them) |
 | **Discover** | `spec-out` | you | a rough plan to resolved facts (`record` writes the spec) |
 | *(spec writes)* | `record` | guard (auto) | a resolved fact to a glossary entry or ADR |
 | **Build & deliver** | `ship-out` | you | a goal plus the spec to an implementation, reconciled spec, gated PR |
