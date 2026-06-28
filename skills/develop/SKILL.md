@@ -19,20 +19,22 @@ proves it; until then it's a mutable draft in the brief, never in the ADR direct
 
 ## The loop
 
-```
-discover ─►(confirm gate)─► build ─► freeze
-                 ▲    re-enter discover on mind-change
-```
+Spine: **discover → confirm gate → build → freeze → verify → deliver**. Two edges bend it: you may
+**stop at the confirm gate** (pure discovery, a valid end), and you **re-enter discover** from build
+or review whenever your mind changes.
 
-1. **Discover.** Skim the spec; treat settled records as given. Restate the plan as named branches.
-   Interrogate one at a time: the sharpest question that cuts the most uncertainty, your recommended
-   answer with it. If the spec or code already answers, read it. Output a **draft brief**: one
-   resolution per branch, acceptance-shaped. **Record nothing**: the brief constrains the build
-   without being written. Write pre-code only when the human asks (a fact something outside this loop
-   needs now, or insurance against context loss).
+1. **Discover.** Map the plan into named branches, resolve them by interview, output a draft brief.
+   - **Interrogate** one branch at a time: the sharpest question that cuts the most uncertainty, your
+     recommended answer with it. If the spec or code already answers, read it.
+   - **Sharpen vocabulary**: challenge a term that conflicts with the glossary, pin a fuzzy or
+     overloaded one to a single canonical term, stress-test relationships with concrete edge-case
+     scenarios, and when the user asserts how something works, check the code agrees.
+   - **Brief**: one resolution per branch, acceptance-shaped. It constrains the build without being
+     written. **Record nothing** pre-code unless the human asks (a fact something outside this loop
+     needs now, or insurance against context loss).
 2. **Confirm gate.** Present the brief. Stopping here is a valid end: pure discovery, nothing frozen.
    Continue only on an explicit go-ahead.
-3. **Build.** Default freely on reversible choices; the code tests the drafts. A hard-to-reverse
+3. **Build.** Decide reversible choices on your own; the code tests the drafts. A hard-to-reverse
    choice goes to `record`, never guessed.
 4. **Re-enter discover** whenever building or review changes your mind. Reworking a draft is an edit,
    not a supersede.

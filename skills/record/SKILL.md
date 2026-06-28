@@ -37,7 +37,8 @@ Locations: glossary `docs/GLOSSARY.md`; ADRs `docs/decisions/`; else the agent d
 ## Glossary
 
 One canonical term per concept. Terms only. A relationship ("an Order owns its line items") is a
-decision, so it's an ADR.
+decision, so it's an ADR. Before writing a term, check the existing glossary; if it collides with or
+duplicates an entry, surface the conflict for the human instead of writing a rival.
 
 ```
 **Term**:
@@ -50,22 +51,26 @@ _Avoid_: synonym1, synonym2
 ```markdown
 # <NNNN>: <decision stated as a choice>
 
+Supersedes: <old-id>            <!-- only when this reverses an existing ADR; else omit -->
+Status: superseded by <id>      <!-- only on an ADR that was later reversed; a live ADR has none -->
+
 <1-3 sentences: context, decision, why.>
+
+## Considered options           <!-- optional; add only when it earns its place -->
+
+## Consequences                 <!-- optional; add only when it earns its place -->
 ```
 
-Add `Considered options` / `Consequences` only when they earn it. Number by incrementing the highest
-id in the dir.
-
-**Status:** no `Status` line means live. The only status ever written is `Status: superseded by
-<id>`. Never write `Status: accepted`.
+Number by incrementing the highest id in the dir. A new ADR has no `Status` line, which means live.
+Never write `Status: accepted`; the only status ever written is `superseded by <id>` (see below).
 
 **Record an ADR only when all three hold:** hard to reverse, surprising without context, a real
 trade-off. Else skip.
 
 **Supersede** to reverse one. First the **merits gate:** argue the reversal fresh, as if no ADR
-existed, never "the old one is inconvenient." If merits favor change, draft the new ADR with a
-`Supersedes: <old-id>` line and add `Status: superseded by <new-id>` under the old title (never touch
-its body). Write both or neither; else keep the old and record nothing.
+existed, never "the old one is inconvenient." If merits favor change, draft the new ADR with its
+`Supersedes` line and flip the old one's `Status`, never touching the old body.
+Write both or neither; else keep the old and record nothing.
 
 ## Steps
 
