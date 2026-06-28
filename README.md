@@ -1,106 +1,101 @@
 # living-spec
 
-**Human-in-the-loop, spec-driven development around a living spec.** Your living spec is the source the agent builds from and stays coherent with, and you ratify every durable or outward step.
+**Spec-driven development with a human in the loop.** The agent builds from a living spec and stays coherent with it; you ratify every durable or outward step.
 
-The **living spec** is the heart: two kinds of durable knowledge, kept coherent *with* code as it changes.
+Most agent setups are *autonomy-forward*: the agent interviews you, then writes and acts alone. `living-spec` is **ratification-forward**: nothing durable or irreversible lands without an explicit human gate, and gate strength tracks reversibility, so reversible work stays frictionless while only immutable or outward actions earn a full review.
+
+The **living spec** is two kinds of durable knowledge, kept coherent *with* the code as it changes:
 
 - a **glossary**: what your words mean;
-- **ADRs**: what you decided (architecture, rules, constraints, technology, deviations: every durable choice).
+- **ADRs**: what you decided (architecture, rules, constraints, technology, deviations).
 
-It doubles as engineered context: typed, fresh, token-cheap.
+It doubles as engineered context for the agent: typed, fresh, token-cheap.
 
-Most agent setups are *autonomy-forward*: the agent interviews you, then writes and acts on its own. `living-spec` is *ratification-forward*. No durable or irreversible change lands without an explicit human gate, and gate strength tracks reversibility, so cheap reversible work stays frictionless while only immutable or outward actions earn a full review.
+## What it looks like
+
+A glossary entry pins a word; an ADR pins a decision:
+
+```markdown
+# docs/GLOSSARY.md
+**Idempotency key**:
+A client token that makes a retried request a no-op.
+_Avoid_: dedup id, request id
+```
+
+```markdown
+# docs/decisions/0007-optimistic-locking.md
+# 0007: Optimistic locking on writes, not pessimistic
+Concurrent edits are rare and lock contention hurt throughput in load tests, so writers
+compare-and-set on a version column and retry on conflict.
+```
+
+`record` is the only thing that writes these; `audit` enforces both against the code.
 
 ## Install
 
 ```sh
-# browse and select skills to install
-npx skills add guillevc/living-spec
-
-# specific skill
+npx skills add guillevc/living-spec            # browse and select
 npx skills add guillevc/living-spec --skill <name>
 ```
 
-Zero-config. Skills auto-detect your doc layout by convention (`docs/GLOSSARY.md`, `docs/decisions/` or `docs/adr/`). If a project keeps docs elsewhere, they read your `CLAUDE.md`/`AGENTS.md`, else ask once. Docs are created lazily on first real content; nothing is scaffolded upfront.
+Zero-config. Skills auto-detect your doc layout (`docs/GLOSSARY.md`, `docs/decisions/`), else read your `CLAUDE.md`/`AGENTS.md`, else ask once. Docs are created lazily on first content.
 
 ## The principle
 
 > Agent explores, proposes, drafts. Human decides and ratifies. No durable or irreversible state change without an explicit human gate.
 
-Gate strength tracks reversibility:
-
 | Class | Examples | Gate |
 |---|---|---|
-| Ephemeral, reversible | exploration, drafts, scratch, queries | **none**: agent autonomous |
+| Ephemeral, reversible | exploration, drafts, queries | **none**, agent autonomous |
 | Durable, mutable | glossary add/edit | **light confirm** |
-| Durable, immutable, outward | ADR write, supersede, commit, PR | **hard gate**: draft, then explicit ratify |
-
-Every skill declares its gates in a **Human-in-the-loop contract** section.
+| Durable, immutable, outward | ADR write, supersede, commit, PR | **hard**: draft, then ratify |
 
 ## The living spec
 
-Two durable *kinds* of knowledge. They behave differently, so they're separate docs:
+| Doc | Holds | Nature |
+|---|---|---|
+| **glossary** | canonical terms; code mirrors them | living, edited in place |
+| **ADRs** | one decision per file: architecture, rules, constraints, deviations | immutable; supersede, never rewrite |
 
-| Doc | Holds | Nature | Written by |
-|---|---|---|---|
-| **glossary** | canonical terms; code mirrors them | living, edited in place | `record` |
-| **ADRs** | one decision per file: architecture, rules, constraints, deviations | immutable; supersede, never rewrite | `record` |
+**Durable-fact rule:** the spec changes *only* when durable fact changes. A term goes to the glossary; any decision, rule, or constraint becomes an ADR. Everything else (progress, status, behavior) lives in code and tests; don't restate it.
 
-**The durable-fact rule:** the spec changes *only* when durable fact changes. A term goes to the glossary; any decision, rule, or constraint goes to an ADR. Everything else (progress, status, shipped behavior) lives in code and tests. Code documents behavior; don't restate it in the spec.
+**ADRs are light:** a title plus 1-3 sentences, recorded only when all three hold: hard to reverse, surprising without context, a real trade-off.
 
-**ADRs are light:** title plus 1-3 sentences by default; add sections only when they earn it. Record one only when all three hold (hard to reverse, surprising without context, a real trade-off), otherwise skip it.
+**The spec trails the code:** a decision earns an immutable ADR only after code proves it. Until then it's a mutable draft in the ephemeral brief, never in the ADR directory, so discovery stays unconstrained and the spec never churns.
 
-**Planning is optional and external.** Keep a `roadmap.md` if you want one (hand-maintained); `ship-out` reads its goal from a roadmap entry or your prompt, neither privileged. The system doesn't own planning.
+**Planning is optional and external.** Keep a hand-maintained `roadmap.md` if you want; `develop` reads its goal from a roadmap entry or your prompt, neither privileged.
 
 ## Skills
 
-Five skills. Two ambient guards that fire during work; three verbs you invoke.
+Five skills: three verbs you invoke, two guards the agent fires on its own during any work.
 
-| Skill | Role | Invocation |
+| Skill | Invocation | Role |
 |---|---|---|
-| `init-spec` | Cold-start: extract the terms and decisions already baked into an existing codebase; hand them to `record`. Run once at adoption | **`/init-spec`** (user) |
-| `spec-out` | Discover: interrogate a plan until nothing important is implicit; hand resolved facts to `record` | **`/spec-out`** (user) |
-| `record` | Write the living spec: a glossary term or an ADR (including supersede, with the merits gate) | guard (model) |
-| `audit` | Check code against the living spec (decisions, rules, terms); human picks the fix | guard (model) |
-| `ship-out` | Build a unit from a goal plus the spec, reconcile, verify, optionally commit/PR (never merges) | **`/ship-out`** (user) |
+| `init-spec` | **`/init-spec`** | Cold-start: extract the terms and decisions baked into an existing codebase. Run once at adoption. |
+| `develop` | **`/develop`** | One loop from idea to shipped: interrogate, build against the spec, freeze the decisions the code proved, verify, optionally commit/PR (never merges). Stop at the confirm gate to think without building. |
+| `reconcile` | **`/reconcile`** | Sweep the whole spec against the whole codebase after out-of-band changes. The human-triggered global drift check. |
+| `record` | guard | Write the spec: a glossary term or an ADR (including supersede, with the merits gate). |
+| `audit` | guard | Check what the agent touched against the spec, both directions; the human picks the fix. |
 
-### How each skill is invoked
-
-`disable-model-invocation` (a Claude Code frontmatter field) decides this. There's no portable standard, so the intent is documented here too.
-
-- **Guards, model-invoked, fire autonomously during any work:** `record` (when a durable fact crystallizes) and `audit` (when code and spec diverge). One writes the spec, one checks code against it.
-- **Verbs, user-invoked only (`disable-model-invocation: true`):** `init-spec` (one-time cold-start), `spec-out` (deliberate discovery), and `ship-out` (deliberate build and outward delivery). None auto-fire.
+**Invocation** is set by `disable-model-invocation`, a Claude Code field with no portable standard. On Claude Code it hard-blocks the model from firing a verb, so the three verbs are yours alone. On other Agent-Skills harnesses the field is ignored; the verbs then rely on plain, non-triggering descriptions, a best-effort gate rather than a guarantee.
 
 ## Workflow
 
-Two moves you make; the guards do the rest automatically.
-
 ```
-  /init-spec ────────────► cold-start (once, on an existing repo)
-     │   extract implicit terms + decisions ─► record ─► living spec
-     ▼
-  /spec-out ─────────────► discover
-     │   interrogate until nothing important is implicit
-     │   resolved facts ─► record ─► living spec (glossary + ADRs)
-     ▼
-  /ship-out ─────────────► build
-     │   brief the goal (prompt or roadmap) + read the spec
-     │   implement (ask when the spec is silent; new decisions ─► record)
-     │   audit ─► reconcile ─► record   (keep spec coherent)
-     │   verify (run tests)
-     ▼
-  commit / PR ───────────► deliver (you review + merge; ship-out never merges)
+/init-spec   once on an existing repo: extract implicit terms + decisions → record
+
+/develop     discover → [confirm gate] → build → freeze → verify → commit/PR
 ```
 
-| Phase | Skill | Who | Input to output |
-|---|---|---|---|
-| **Cold-start** *(once)* | `init-spec` | you | an existing codebase to an initial glossary + ADRs (`record` writes them) |
-| **Discover** | `spec-out` | you | a rough plan to resolved facts (`record` writes the spec) |
-| *(spec writes)* | `record` | guard (auto) | a resolved fact to a glossary entry or ADR |
-| **Build & deliver** | `ship-out` | you | a goal plus the spec to an implementation, reconciled spec, gated PR |
-| *(coherence)* | `audit` | guard (auto) | code/spec divergence; human picks the fix |
+- **discover**: interrogate the plan to a draft brief; record nothing yet.
+- **confirm gate**: stop here for pure thinking, or approve the build.
+- **build**: the code tests the drafts; re-enter discover on a mind-change.
+- **freeze**: run `audit`, then `record` the decisions the code proved.
+- **deliver**: you review and merge; `develop` never merges.
 
-Ad-hoc work needs neither verb. Just code; `record` and `audit` fire during any work to keep the spec coherent. `ship-out` is the deliberate "build this unit and deliver it" move.
+Ad-hoc work needs no verb: just code, and `record` and `audit` fire during any work to keep the spec coherent.
+
+**Out-of-band drift.** `audit` only checks what the agent touched, and the guards fire only when the agent runs, so code changed without it (a teammate's edit, a hand-merged PR) branches the spec with no guard firing; by design there's no commit or CI gate. **`/reconcile`** is the catch-up: a human-triggered sweep of the whole spec against the whole codebase. Run it before a merge or release. The spec may lag between sweeps, the accepted trade for zero automation.
 
 ## License
 
