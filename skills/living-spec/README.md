@@ -48,14 +48,14 @@ Zero-config. Skills auto-detect your doc layout (`docs/GLOSSARY.md`, `docs/decis
 |---|---|---|
 | Ephemeral, reversible | exploration, drafts, queries | **none**, agent autonomous |
 | Durable, mutable | glossary add/edit | **light confirm** |
-| Durable, immutable, outward | ADR write, supersede, commit, PR | **hard**: draft, then ratify |
+| Durable, hard to undo, or outward | ADR write, supersede, **any commit** including local, push, PR | **hard**: draft, then ratify |
 
 ## The living spec
 
 | Doc | Holds | Nature |
 |---|---|---|
 | **glossary** | canonical terms; code mirrors them | living, edited in place |
-| **ADRs** | one decision per file: architecture, rules, constraints, deviations | immutable; supersede, never rewrite |
+| **ADRs** | one decision per file: architecture, rules, constraints, deviations | immutable once delivered; supersede, never rewrite; soft and editable within the loop that wrote it |
 
 **Durable-fact rule:** the spec changes *only* when durable fact changes. A term goes to the glossary; any decision, rule, or constraint becomes an ADR. Everything else (progress, status, behavior) lives in code and tests; don't restate it.
 
@@ -91,7 +91,7 @@ Five skills: three verbs you invoke, two guards the agent fires on its own durin
 - **confirm gate**: stop here for pure thinking, or approve the build.
 - **build**: the code tests the drafts; re-enter discover on a mind-change.
 - **freeze**: run `audit`, then `record` the decisions the code proved.
-- **deliver**: you review and merge; `develop` never merges.
+- **deliver**: every commit waits for your approval; the default is one commit to the current branch, with branch, push, and PR only when you ask. You review and merge; `develop` never merges.
 
 Ad-hoc work needs no verb: just code, and `record` and `audit` fire during any work to keep the spec coherent.
 

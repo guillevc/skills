@@ -15,8 +15,8 @@ adoption.
 
 1. **Check it's needed.** If a spec exists, stop and point the human at `record` and `audit`. Check
    every home `record` writes to: `docs/GLOSSARY.md`, `docs/decisions/`, and the agent doc
-   (`CLAUDE.md`/`AGENTS.md`) for an existing glossary or ADR section (the fallback home when no `docs/`
-   structure exists).
+   `CLAUDE.md`/`AGENTS.md` for an existing glossary or ADR section, its fallback home when no `docs/`
+   structure exists.
 2. **Survey.** Read the code, README, and agent doc. Pull the **ubiquitous language** (recurring
    domain nouns) and the **decisions baked in** (datastore, protocols, hard limits, deliberate
    deviations).
