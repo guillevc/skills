@@ -97,6 +97,13 @@ Ad-hoc work needs no verb: just code, and `record` and `audit` fire during any w
 
 **Out-of-band drift.** `audit` only checks what the agent touched, and the guards fire only when the agent runs, so code changed without it (a teammate's edit, a hand-merged PR) branches the spec with no guard firing; by design there's no commit or CI gate. **`/reconcile`** is the catch-up: a human-triggered sweep of the whole spec against the whole codebase. Run it before a merge or release. The spec may lag between sweeps, the accepted trade for zero automation.
 
+## References
+
+These shaped the design:
+
+- [mattpocock/skills](https://github.com/mattpocock/skills)
+- [Dammyjay93/interface-design](https://github.com/Dammyjay93/interface-design)
+
 ## License
 
 MIT
