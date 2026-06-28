@@ -2,7 +2,7 @@
 name: init-spec
 description: Bootstrap a living spec on an existing codebase by extracting the terms and decisions already baked into the code. Run once when adopting living-spec. User-invoked.
 disable-model-invocation: true
-argument-hint: <optional: a path or area to focus on>
+argument-hint: <optional path or area to focus on>
 ---
 
 # Init-spec

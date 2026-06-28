@@ -2,7 +2,7 @@
 name: reconcile
 description: Sweep the whole living spec against the whole codebase to catch drift after out-of-band changes. The deliberate, human-triggered global pass. User-invoked.
 disable-model-invocation: true
-argument-hint: <optional: an area to scope the sweep to>
+argument-hint: <optional area to scope the sweep to>
 ---
 
 # Reconcile
