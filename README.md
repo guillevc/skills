@@ -25,7 +25,7 @@ npx skills add guillevc/skills --skill <name>
 
 ### living-spec
 
-A coordinated bundle for keeping a living spec (ADRs + glossary) in sync with code. See [skills/living-spec/README.md](skills/living-spec/README.md).
+Keep a living spec (ADRs + glossary) in sync with code. See [skills/living-spec/README.md](skills/living-spec/README.md).
 
 | Skill        | Description                                                                                                                                            |
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -33,7 +33,7 @@ A coordinated bundle for keeping a living spec (ADRs + glossary) in sync with co
 | `develop`    | Take a unit of work from fuzzy idea to shipped on one loop: interrogate the plan, build against the spec, freeze proven decisions, verify, optionally commit/PR. |
 | `audit`      | Audit code against the living spec and let the human resolve each contradiction. Reports drift; never auto-fixes.                                       |
 | `record`     | Write a resolved fact (a glossary term or an ADR) into the living spec and keep it coherent. Drafts for human ratification.                            |
-| `reconcile`  | Sweep the whole living spec against the whole codebase to catch drift after out-of-band changes — the deliberate, human-triggered global pass.         |
+| `reconcile`  | Sweep the whole living spec against the whole codebase to catch drift after out-of-band changes. The human-triggered global pass.                       |
 
 ## License
 
