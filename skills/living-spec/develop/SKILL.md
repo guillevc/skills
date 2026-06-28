@@ -23,9 +23,13 @@ Spine: **discover → confirm gate → build → freeze → verify → deliver**
 **stop at the confirm gate** (pure discovery, a valid end), and you **re-enter discover** from build
 or review whenever your mind changes.
 
-1. **Discover.** Map the plan into named branches, resolve them by interview, output a draft brief.
-   - **Interrogate** one branch at a time: the sharpest question that cuts the most uncertainty, your
-     recommended answer with it. If the spec or code already answers, read it.
+1. **Discover.** Map the plan into a tree of named branches, then walk it branch by branch, resolving
+   each decision and its dependencies before the next. Interview the user until you both share one
+   understanding of every branch; loop rather than settle for a single pass. Draft the brief only then.
+   - **Interrogate** one branch at a time: ask the single sharpest question that cuts the most
+     uncertainty, with your recommended answer. **Ask one question, then wait for the answer before
+     the next.** Batching questions bewilders the user and defeats the interview. If the spec or code
+     already answers, read it instead of asking.
    - **Sharpen vocabulary**: challenge a term that conflicts with the glossary, pin a fuzzy or
      overloaded one to a single canonical term, stress-test relationships with concrete edge-case
      scenarios, and when the user asserts how something works, check the code agrees.
