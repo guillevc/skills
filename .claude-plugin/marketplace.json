@@ -1,0 +1,23 @@
+{
+  "plugins": [
+    {
+      "name": "living-spec",
+      "skills": [
+        "./skills/living-spec/audit",
+        "./skills/living-spec/develop",
+        "./skills/living-spec/init-spec",
+        "./skills/living-spec/reconcile",
+        "./skills/living-spec/record"
+      ]
+    },
+    {
+      "name": "misc",
+      "skills": [
+        "./skills/misc/2-commit-fast",
+        "./skills/misc/refactor-guru",
+        "./skills/misc/swift-factory-di",
+        "./skills/misc/test-doubles"
+      ]
+    }
+  ]
+}
