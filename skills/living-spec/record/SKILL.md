@@ -18,9 +18,9 @@ The single writer of the **living spec**: the **glossary** (what words mean, edi
 
 - **Autonomous:** classify the fact, choose the slot, draft the entry.
 - **Light:** glossary edits; confirm before writing.
-- **Hard:** a delivered ADR is immutable. Present the draft, get explicit go-ahead, then write. Never
-  edit a delivered ADR in place; reverse it only by superseding. A soft ADR from the current loop is
-  still editable; see Soft ADRs below.
+- **Hard:** a committed ADR is immutable. Present the draft, get explicit go-ahead, then write. Never
+  edit a committed ADR in place; reverse it only by superseding. An uncommitted ADR is still soft; see
+  Soft ADRs below.
 
 ## Route
 
@@ -68,12 +68,11 @@ Never write `Status: accepted`; the only status ever written is `superseded by <
 **Record an ADR only when all three hold:** hard to reverse, surprising without context, a real
 trade-off. Else skip.
 
-**Soft ADRs.** An ADR written earlier in the current, not-yet-delivered `develop` loop is still soft:
-edit or drop it in place, no supersede, no merits gate. Immutability starts at delivery. Once the loop
-commits, or in any later session, the ADR is immutable. **Default to immutable and supersede whenever
-you can't confirm delivery.**
+**Soft ADRs.** An uncommitted ADR is still soft: edit or drop it in place, no supersede, no merits
+gate. Immutability starts at the commit that delivers it. Once committed, the ADR is immutable.
+**Treat an ADR as immutable and supersede unless you're sure it's still uncommitted.**
 
-**Supersede** to reverse a delivered ADR. First the **merits gate:** argue the reversal fresh, as if
+**Supersede** to reverse a committed ADR. First the **merits gate:** argue the reversal fresh, as if
 no ADR existed, never "the old one is inconvenient." If merits favor change, draft the new ADR with
 its `Supersedes` line and flip the old one's `Status`, never touching the old body.
 Write both or neither; else keep the old and record nothing.

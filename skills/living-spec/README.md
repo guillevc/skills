@@ -4,12 +4,12 @@
 
 Most agent setups are *autonomy-forward*: the agent interviews you, then writes and acts alone. `living-spec` is **ratification-forward**: nothing durable or irreversible lands without an explicit human gate, and gate strength tracks reversibility, so reversible work stays frictionless while only immutable or outward actions earn a full review.
 
-The **living spec** is two kinds of durable knowledge, kept coherent *with* the code as it changes:
+The **living spec** is two kinds of durable knowledge with different mechanics by design, kept coherent *with* the code as it changes:
 
-- a **glossary**: what your words mean;
-- **ADRs**: what you decided (architecture, rules, constraints, technology, deviations).
+- **ADRs**, the **event log**: what you decided (architecture, rules, constraints, technology, deviations). A decision is a historical event, so an ADR is immutable, numbered, and reversed only by superseding.
+- a **glossary**, the **live dictionary**: what your words mean. A definition is current truth, not an event, so you edit it in place to keep it accurate.
 
-It doubles as engineered context for the agent: typed, fresh, token-cheap.
+The mutability gap mirrors the knowledge: an event you record once, a meaning you keep current. Together they double as engineered context for the agent: typed, fresh, token-cheap.
 
 ## What it looks like
 
@@ -54,8 +54,8 @@ Zero-config. Skills auto-detect your doc layout (`docs/GLOSSARY.md`, `docs/decis
 
 | Doc | Holds | Nature |
 |---|---|---|
-| **glossary** | canonical terms; code mirrors them | living, edited in place |
-| **ADRs** | one decision per file: architecture, rules, constraints, deviations | immutable once delivered; supersede, never rewrite; soft and editable within the loop that wrote it |
+| **ADRs** (event log) | one decision per file: architecture, rules, constraints, deviations | immutable once committed; supersede, never rewrite; soft and editable while uncommitted |
+| **glossary** (live dictionary) | canonical terms; code mirrors them | living, edited in place |
 
 **Durable-fact rule:** the spec changes *only* when durable fact changes. A term goes to the glossary; any decision, rule, or constraint becomes an ADR. Everything else (progress, status, behavior) lives in code and tests; don't restate it.
 

@@ -48,9 +48,9 @@ or review whenever your mind changes.
    not a supersede.
 5. **Freeze (post-code).** Run `audit`. Present the full set of draft decisions and term changes the
    code proved, in one place, for the user to review before anything sets in stone. Fold survivors into
-   the spec via `record`, which gates each ADR and glossary edit. An ADR `record` writes this loop
-   stays **soft** until step 7 delivers: rework or drop it in place, no supersede. Trim behavioral
-   prose that crept in. Surface pre-existing drift you didn't cause; don't fix it or grow scope.
+   the spec via `record`, which gates each ADR and glossary edit. An ADR stays **soft** until step 7
+   commits it: rework or drop it in place, no supersede. Trim behavioral prose that crept in. Surface
+   pre-existing drift you didn't cause; don't fix it or grow scope.
 6. **Verify.** Run the project's tests (`go test ./...`, the `package.json` script, the make/just
    target, else ask). Must pass.
 7. **Deliver.** Default is a **single commit to the current branch**, and it waits for the user's
