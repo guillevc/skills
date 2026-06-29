@@ -1,6 +1,6 @@
 ---
 name: develop
-description: Take a unit of work from fuzzy idea to shipped, on one loop. Interrogate the plan, build against the spec, freeze the decisions the code proved, verify, optionally commit or open a PR. Stop at the confirm gate to think without building. Never merges. User-invoked.
+description: Take a unit of work from fuzzy idea to shipped, on one loop. Interrogate the plan, preview the change as blast radius plus sample code at the confirm gate, build against the spec, freeze the decisions the code proved, verify, optionally commit or open a PR. Stop at the confirm gate to think without building. Never merges. User-invoked.
 disable-model-invocation: true
 argument-hint: <feature, design, or goal to develop>
 ---
@@ -37,15 +37,22 @@ or review whenever your mind changes.
    - **Brief**: one resolution per branch, acceptance-shaped. It constrains the build without being
      written. **Record nothing** pre-code unless the human asks (a fact something outside this loop
      needs now, or insurance against context loss).
-2. **Confirm gate (hard stop).** Present the brief and wait. Write no code until the user gives an
-   explicit go-ahead; no go-ahead, no build. Stopping here is a valid end: pure discovery, nothing
-   built, nothing frozen.
+2. **Confirm gate (hard stop).** Present the brief **and a build plan**, then wait. Write no code
+   until the user gives an explicit go-ahead; no go-ahead, no build. Stopping here is a valid end:
+   pure discovery, nothing built, nothing frozen.
+   - **Build plan**: make the brief code-shaped so the user sees each decision before you write it.
+     **Blast radius** — every file to create or change, one line each on why. **Approach** — a couple
+     of sentences on how. **Sample the decisions, not the plumbing** — show code only for the
+     hard-to-reverse, interface-shaping calls (the ones that would become draft decisions); leave
+     reversible choices unwritten, since the code tests them in build. Don't sketch the whole diff;
+     that's waterfall and double work.
 3. **Build.** Decide reversible choices on your own; the code tests them. A hard-to-reverse choice
    becomes a **draft decision** in the brief: honor it as the current working decision when making
    further choices, but keep it mutable. Rework it, never treat it as a ratified ADR, never write it
    to `docs/decisions/` yet.
-4. **Re-enter discover** whenever building or review changes your mind. Reworking a draft is an edit,
-   not a supersede.
+4. **Re-enter discover** whenever building or review changes your mind, including when the user asks
+   for changes. Reworking a draft is an edit, not a supersede. Re-entry runs the rest of the spine
+   again: changed code goes back through **freeze**, so `audit` re-runs on it. Audit is not one-shot.
 5. **Freeze (post-code).** Run `audit`. Present the full set of draft decisions and term changes the
    code proved, in one place, for the user to review before anything sets in stone. Fold survivors into
    the spec via `record`, which gates each ADR and glossary edit. An ADR stays **soft** until step 7
