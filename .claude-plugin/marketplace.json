@@ -18,6 +18,18 @@
         "./skills/misc/swift-factory-di",
         "./skills/misc/test-doubles"
       ]
+    },
+    {
+      "name": "xcode-skills",
+      "skills": [
+        "./skills/xcode-skills/adopt-c-bounds-safety",
+        "./skills/xcode-skills/audit-xcode-security-settings",
+        "./skills/xcode-skills/device-interaction",
+        "./skills/xcode-skills/modernize-tests",
+        "./skills/xcode-skills/swiftui-specialist",
+        "./skills/xcode-skills/swiftui-whats-new-27",
+        "./skills/xcode-skills/uikit-app-modernization"
+      ]
     }
   ]
 }
